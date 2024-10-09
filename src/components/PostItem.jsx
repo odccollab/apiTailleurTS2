@@ -1,7 +1,11 @@
 import React from 'react';
 import Favoris from "./Favoris.jsx";
+import OptionsModal from './modals/OptionsModal.jsx';
 
 const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, media, id }) => {
+    const [showOptionsModal, setShowOptionsModal] = useState(false); // Gestion de l'affichage du modal des options
+
+    const handleOptionsModal = () => setShowOptionsModal(!showOptionsModal);
     return (
         <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
             <div className="card-body p-0 d-flex">
@@ -12,7 +16,7 @@ const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, medi
                     {userName}
                     <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{timeAgo}</span>
                 </h4>
-                <a href="#" className="ms-auto" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="#" className="ms-auto" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" onClick={handleOptionsModal} >
                     <i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i>
                 </a>
             </div>
@@ -49,6 +53,7 @@ const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, medi
                 </a>
                 <Favoris id={id} />
             </div>
+            <OptionsModal show={showOptionsModal} handleClose={handleOptionsModal} postId={id} />
         </div>
     );
 };
