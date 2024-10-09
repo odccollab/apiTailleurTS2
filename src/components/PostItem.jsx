@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Favoris from "./Favoris.jsx";
-import OptionsModal from './modals/OptionsModal.jsx';
+import OptionsModal from './modals/OptionsModals.jsx';
 
 const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, media, id }) => {
     const [showOptionsModal, setShowOptionsModal] = useState(false); // Gestion de l'affichage du modal des options
@@ -16,7 +16,7 @@ const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, medi
                     {userName}
                     <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{timeAgo}</span>
                 </h4>
-                <a href="#" className="ms-auto" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" onClick={handleOptionsModal} >
+                <a href="#" className="ms-auto"  onClick={handleOptionsModal} >
                     <i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i>
                 </a>
             </div>
