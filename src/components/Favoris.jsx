@@ -9,7 +9,7 @@ const { saveData, isSaving, saveError } = useSave();
     return (
         <>
 
-            <button onClick={() => fav(props.id)}>{isSaving ? "saving ....." : "save"}</button>
+            <button onClick={() => fav(props.id)}>favoris</button>
             <div>{saveError}</div>
         </>
     )
