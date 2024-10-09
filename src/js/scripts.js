@@ -6,7 +6,7 @@ $(document).ready(function() {
     // Loading Box (Preloader)
     function handlePreloader() {
         if ($('.preloader').length > 0) {
-            $('.preloader').delay(200).fadeOut(500);
+            $('.preloader').delay(500).fadeOut(1000);
         }
     }
 

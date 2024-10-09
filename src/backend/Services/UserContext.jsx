@@ -18,7 +18,6 @@ export const UserProvider = ({ children }) => {
     const toggleTheme = () => {
         setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
     };
-
     return (
         <UserContext.Provider value={{ user, updateUser, theme, toggleTheme }}>
             {children}

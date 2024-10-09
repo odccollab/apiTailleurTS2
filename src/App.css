@@ -1,0 +1,37 @@
+.modal {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.modal-backdrop {
+    display: none !important;
+}
+
+.modal-content {
+    background: white !important;
+    position: relative;
+    z-index: 1056;
+}
+
+.modal-open .modal {
+    display: block;
+    z-index: 1055;
+}
+
+.modal-dialog {
+    max-width: 500px;
+    margin: 1.75rem auto;
+    position: relative;
+    z-index: 1056;
+}
+
+.close {
+    background: none;
+    border: none;
+    z-index: 2;
+}
+
+/* Fix pour le scroll */
+body.modal-open {
+    overflow: hidden;
+    padding-right: 0 !important;
+}

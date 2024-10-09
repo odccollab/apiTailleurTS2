@@ -1,4 +1,4 @@
-const ConfirmFriendList = () => {
+export const ConfirmFriendList = () => {
     return (
         <div className="card w-100 shadow-xss rounded-xxl border-0 p-0 ">
             <div className="card-body d-flex align-items-center p-4 mb-0">
@@ -15,10 +15,9 @@ const ConfirmFriendList = () => {
     );
 };
 
-export default ConfirmFriendList;
 
 // SuggestGroupCard.jsx
-const SuggestGroupCard = () => {
+export const SuggestGroupCard = () => {
     return (
         <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3 mt-3">
             <div className="card-body d-flex align-items-center p-4">
@@ -42,7 +41,6 @@ const SuggestGroupCard = () => {
     );
 };
 
-export default SuggestGroupCard;
 
 // SuggestPagesCard.jsx
 const SuggestPagesCard = () => {
@@ -62,7 +60,6 @@ const SuggestPagesCard = () => {
     );
 };
 
-export default SuggestPagesCard;
 
 // EventCard.jsx
 const EventCard = () => {
