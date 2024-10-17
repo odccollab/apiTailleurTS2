@@ -1,0 +1,260 @@
+.user-profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+    text-align: center;
+}
+
+.user-profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.user-profile-header img {
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    width: 128px;
+    height: 128px;
+}
+
+.user-stories {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.user-story {
+    text-align: center;
+    margin-right: 16px;
+}
+
+.user-story img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.user-posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    justify-content: center;
+}
+
+.user-post {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.user-post img {
+    width: 100%;
+    height: 256px;
+    object-fit: cover;
+}
+
+.post-div {
+    background-color: #315cb9;
+    border-radius: 12px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.post-div:hover {
+    transform: translateY(-5px);
+}
+
+.post-div img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.user-profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+    text-align: center;
+}
+
+.search-results-page {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+
+.div-post {
+    width: 50%;
+    position: relative;
+    left: 25%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+    gap: 20px; /* Espace entre les cartes */
+    justify-content: center; /* Centre la grille dans le conteneur */
+    padding: 20px;
+}
+
+.div-post-content {
+    background-color: #1E74FD;
+    border-radius: 10px;
+    padding: 10px;
+    transition: transform 0.2s ease-in-out;
+    width: 100%; /* S'assure que chaque post occupe bien la colonne */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.div-post-content:hover {
+    transform: translateY(-5px); /* Effet de survol */
+}
+
+.div-post-content img {
+    border-radius: 10px 10px 0 0;
+    width: 100%; /* L'image occupe toute la largeur du post */
+    height: 200px;
+    object-fit: cover; /* Ajuste l'image pour ne pas être déformée */
+}
+
+/* Conteneur principal centré */
+.profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Style du header utilisateur */
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Image de profil */
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #e0e0e0;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Nom d'utilisateur */
+.profile-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Nom d'utilisateur (@) */
+.profile-username {
+    color: gray;
+    font-size: 16px;
+}
+
+/* Stats du profil */
+.profile-stats {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.stat-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.follow-button, .contact-button,.credit-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.follow-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.contact-button {
+    background-color: white;
+    border: 1px solid #ccc;
+    color: black;
+    font-weight: bold;
+}
+
+/* Conteneur des posts */
+.posts-container {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Style des posts */
+.post-item {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.post-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.post-content {
+    padding: 15px;
+    text-align: left;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: gray;
+    font-size: 14px;
+}
+
+.credit-button{
+    background-color: #10D876;
+    color: white;
+    border: none;
+}
+/* Responsive design */
+@media (max-width: 768px) {
+    .posts-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-container {
+        padding: 10px;
+    }
+
+    .profile-header {
+        text-align: left;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+    }
+}

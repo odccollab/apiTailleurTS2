@@ -1,0 +1,106 @@
+/* Base styles for post comment section */
+.comments-section {
+    margin-top: 1rem;
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.comment-item {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.commenter-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.comment-content {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    flex-grow: 1;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.25rem;
+}
+
+.commenter-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #1877f2; /* Facebook blue color */
+}
+
+.comment-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.comment-action-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #65676b;
+    transition: color 0.2s;
+}
+
+.comment-action-icon:hover {
+    color: #1877f2;
+}
+
+.comment-text {
+    background-color: #f0f2f5;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    color: #050505;
+}
+
+.new-comment {
+    display: flex;
+    align-items: center;
+}
+
+.new-comment textarea {
+    width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+}
+
+.new-comment button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+/* Toggle comments button */
+.toggle-comments-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px;
+    background-color: #f0f2f5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #65676b;
+}
+
+.toggle-comments-button:hover {
+    background-color: #e4e6e9;
+}

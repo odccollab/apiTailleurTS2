@@ -1,0 +1,37 @@
+/* ShareModal.css */
+
+.modal-header {
+    background-color: #f8f9fa; /* Couleur d'arrière-plan */
+}
+
+.modal-body {
+    padding: 20px; /* Espacement interne du corps du modal */
+}
+
+.search-input {
+    margin-bottom: 20px; /* Espacement entre le champ de recherche et la liste */
+}
+
+.user-list {
+    max-height: 200px; /* Hauteur maximale de la liste */
+    overflow-y: auto; /* Permet le défilement vertical */
+}
+
+.user-item {
+    display: flex; /* Flex pour aligner l'image et le texte */
+    align-items: center; /* Centrer verticalement */
+    cursor: pointer; /* Pointeur pour indiquer que c'est cliquable */
+    padding: 10px; /* Espacement autour de chaque utilisateur */
+}
+
+.user-item img {
+    border-radius: 50%; /* Pour faire l'image ronde */
+    width: 40px; /* Largeur de l'image */
+    height: 40px; /* Hauteur de l'image */
+    margin-right: 10px; /* Espacement entre l'image et le texte */
+}
+
+.user-item .username {
+    font-size: 0.8em; /* Taille de police pour le nom d'utilisateur */
+    color: gray; /* Couleur du texte */
+}
