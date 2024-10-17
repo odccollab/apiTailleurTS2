@@ -74,7 +74,7 @@ const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, medi
                 )}
                 {showLikes && <Likes id={id} />}
                 <button onClick={handleCommentToggle}><MessageCircle/> {comments} Comments</button>
-                <Vue postId={id} initialViews={views}/>
+                 <Vue postId={id} initialViews={views}/>
                 <Favoris id={id}/>
             </div>
             <div className="card-body d-flex p-0 mt-3">
