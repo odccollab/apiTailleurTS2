@@ -1,6 +1,6 @@
 export const NavHeader2 = () => {
     return (
-        <div className="nav-header bg-transparent shadow-none border-0">
+        <div className="nav-header bg-transparent shadow-none border-0 z-index--2000">
             <div className="nav-top w-100">
                 <a href="index.html">
                     <i className="feather-zap text-success display1-size me-2 ms-0"></i>
@@ -27,10 +27,9 @@ export const NavHeader2 = () => {
                     Login
                 </a>
                 <a
-                    href="#"
+                    href="/register"
                     className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl"
-                    data-bs-toggle="modal"
-                    data-bs-target="#Modalregister"
+
                 >
                     Register
                 </a>

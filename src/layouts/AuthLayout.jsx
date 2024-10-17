@@ -1,7 +1,7 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-export const AuthLayout = ({ children }) => {
+export const AuthLayout = () => {
     const { isAuthenticated } = useAuth();
     const location = useLocation();
 
@@ -9,5 +9,6 @@ export const AuthLayout = ({ children }) => {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
-    return children;
+    // Renders nested routes as children
+    return <Outlet />;
 };

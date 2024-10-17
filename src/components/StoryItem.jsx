@@ -1,8 +1,8 @@
 
 const StoryItem = ({ image, video, userImage, userName }) => {
     return (
-        <div className="item">
-            <div data-bs-toggle="modal" data-bs-target="#Modalstory" className="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden cursor-pointer mb-3 mt-3" style={{ backgroundImage: `url(${image})` }}>
+        <div className="item p-1">
+            <div data-bs-toggle="" data-bs-target="" className="card w200 h300 d-block border-0 shadow-xss rounded-xxxl  overflow-hidden cursor-pointer mb-3 mt-3" style={{ backgroundImage: `url(${image})` }}>
                 {video && (
                     <video autoPlay loop className="float-right w-100">
                         <source src={video} type="video/mp4" />

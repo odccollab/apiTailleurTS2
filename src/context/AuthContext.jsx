@@ -1,11 +1,23 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import {jwtDecode} from 'jwt-decode';  // Correct import without curly braces
+import {createContext, useContext, useState, useEffect, useRef} from 'react';
+import {jwtDecode} from 'jwt-decode';
+import {useNavigate} from "react-router-dom";  // Correct import without curly braces
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
+    const [id, setId] = useState(0);
+    const prevIdRef = useRef(id);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if ( id !== 0) {
+            navigate("/discussion");
+        }
+        // Update the previous ID to the current ID
+        prevIdRef.current = id;
+    }, [id]);
 
     useEffect(() => {
         const initializeAuth = () => {
@@ -55,7 +67,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, user, login, logout ,id,setId}}>
             {children}
         </AuthContext.Provider>
     );

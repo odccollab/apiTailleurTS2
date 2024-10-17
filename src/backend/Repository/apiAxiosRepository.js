@@ -12,32 +12,28 @@ const apiRepository = {
                     'Accept': '*/*',
                 },
             });
-            return response.data; // axios retourne directement les données JSON
+            return response.data;
         } catch (error) {
             console.error('Error:', error.response ? error.response.data : error.message);
-            console.error( error.response );
-            console.error( error.message);
-            console.error( error.response.data );
-
-            throw new Error( error.response.data.error);
+            throw new Error(error.response?.data?.error || 'Unknown error occurred');
         }
     },
 
     // Save data to the server with method support (POST, PUT, PATCH, DELETE)
     saveData: async (endpoint, data, method = 'POST') => {
+        // Determine Content-Type based on data type
         const headers = {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            'Content-Type': 'application/json',
             'Accept': '*/*',
+            'Content-Type': data instanceof FormData ? 'multipart/form-data' : 'application/json',
         };
 
         try {
-            // Configuration de la requête selon le type de méthode HTTP
             const config = {
                 method: method,
                 url: baseUrl + endpoint,
                 headers: headers,
-                data: method !== 'DELETE' ? data : null, // Pas de body pour DELETE
+                data: method !== 'DELETE' ? data : null,
             };
 
             const response = await axios(config);
@@ -45,24 +41,20 @@ const apiRepository = {
             console.log('Response Status:', response.status);
             console.log('Response Body:', response.data);
 
-            return response.data; // axios gère directement les réponses JSON
+            return response.data;
         } catch (error) {
             let errorMessage;
 
             if (error.response) {
-                // Si le serveur a retourné une réponse d'erreur
                 const errorData = error.response.data;
                 if (errorData.error) {
-                    errorMessage = errorData.error.map(err => {
-                        return `Field: ${err.path.join('.')} - ${err.message}`;
-                    }).join(', ');
-                } else if (errorData.message) {
-                    errorMessage = errorData.message;
+                    errorMessage = Array.isArray(errorData.error)
+                        ? errorData.error.map(err => `Field: ${err.path.join('.')} - ${err.message}`).join(', ')
+                        : errorData.error;
                 } else {
-                    errorMessage = 'Unknown error occurred';
+                    errorMessage = errorData.message || 'Unknown error occurred';
                 }
             } else {
-                // Si l'erreur vient d'une défaillance réseau ou autre
                 errorMessage = error.message;
             }
 

@@ -8,6 +8,7 @@ import './css/feather.css'
 import './css/bootstrap-datetimepicker.css'
 import './css/themify-icons.css'
 import './css/video-player.css'
+import  "./css/dote.css"
 
 
 createRoot(document.getElementById('root')).render(

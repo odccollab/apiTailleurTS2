@@ -3,6 +3,8 @@ import { useAuth } from "../context/AuthContext";
 import useSave from "../backend/Services/useSave";
 import LoginForm from "../components/LoginForm";
 import NavHeader2 from "../components/NavBar2";
+import SocialLogin from "../components/SocialLogin.jsx";
+import registerBg from "../images/ImagesLog.png";
 
 export const LoginPage = () => {
     const { login } = useAuth();
@@ -30,7 +32,7 @@ export const LoginPage = () => {
                 <div className="row">
                     <div
                         className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
-                        style={{ backgroundImage: "url(../images/login-bg.jpg)" }}
+                        style={{ backgroundImage: `url(${registerBg})` }}
                     />
                     <div className="col-xl-7 vh-100 d-flex align-items-center bg-white rounded-3 overflow-hidden">
                         <div className="card shadow-none border-0 mx-auto login-card">
@@ -42,6 +44,7 @@ export const LoginPage = () => {
                                 {isSaving && <p>Logging in...</p>}
                                 {saveError && <p className="text-danger">Error: {saveError}</p>}
                             </div>
+                <SocialLogin />
                         </div>
                     </div>
                 </div>

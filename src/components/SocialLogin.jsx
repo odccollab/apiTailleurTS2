@@ -1,3 +1,6 @@
+import google from '../images/icon-1.png'
+import fb from '../images/icon-3.png'
+
 export const SocialLogin = () => {
     return (
         <div className="col-sm-12 p-0 text-center mt-2">
@@ -6,13 +9,13 @@ export const SocialLogin = () => {
             </h6>
             <div className="form-group mb-1">
                 <a href="#" className="form-control text-left style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2">
-                    <img src="images/icon-1.png" alt="icon" className="ms-2 w40 mb-1 me-5" />
+                    <img src={fb} alt="icon" className="ms-2 w40 mb-1 me-5" />
                     Sign in with Google
                 </a>
             </div>
             <div className="form-group mb-1">
                 <a href="#" className="form-control text-left style2-input text-white fw-600 bg-twiiter border-0 p-0">
-                    <img src="images/icon-3.png" alt="icon" className="ms-2 w40 mb-1 me-5" />
+                    <img src={google} alt="icon" className="ms-2 w40 mb-1 me-5" />
                     Sign in with Facebook
                 </a>
             </div>
