@@ -7,28 +7,28 @@ import RechargeCreditModal from './modals/RechargeCreditModal';
 import CreditCard from './CreditCard';
 import CustomAlert from './Alert/CustomAlert';
 import PostItem from './PostItem';
-import '../css/userProfile.css'
-import Articles from './Articles'; 
-import Commandes from './Commandes'; 
+import '../css/userProfile.css';
+import Articles from './Articles';
+import Commandes from './Commandes';
+import Followers from './Followers';
+import Followings from './Following';
 import { DotTyping } from './DotTyping';
-
-import Favorites from './Favorites'; 
+import Favorites from './Favorites';
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertConfig, setAlertConfig] = useState({});
-    const [activeTab, setActiveTab] = useState(0); // State to track active tab
+    const [activeTab, setActiveTab] = useState(0);
 
     const { data: userData, loading: userLoading, error: userError } = useFetch("users/profile");
 
     const postEndpoint = userData?.user?.id ? `posts/postall-user?userId=${userData.user.id}` : 'posts/postall-user';
     const dataHandler = (newData) => ({
         posts: [...(data.posts || []), ...(newData.posts || [])],
-
     });
-    
+
     const {
         data = { posts: [] },
         loading,
@@ -50,8 +50,16 @@ const UserProfile = () => {
         }
     }, [userData, userError]);
 
+    // Fonction pour mettre à jour le crédit de l'utilisateur après un achat
+    const handleCreditUpdate = (newCredit) => {
+        setUser((prevUser) => ({
+            ...prevUser,
+            credit: newCredit, // Mise à jour du crédit
+        }));
+    };
+
     const handleTabChange = (event, newValue) => {
-        setActiveTab(newValue); // Update active tab
+        setActiveTab(newValue);
     };
 
     if (userLoading) return <p>Chargement...</p>;
@@ -74,14 +82,21 @@ const UserProfile = () => {
                             </button>
                             <button className="stat-button">
                                 <FaUserFriends className="icon" /> <strong>{user.followers}</strong> Abonnés
+                                <div className="followers-container">
+                                    <Followers userId={user?.id} />
+                                </div>
                             </button>
                             <button className="stat-button">
                                 <FaUserCheck className="icon" /> <strong>{user.following}</strong> Abonnements
+                                <div className="followings-container">
+                                    <Followings />
+                                </div>
                             </button>
                         </div>
                     </div>
 
-                    <CreditCard credit={user.credit} />
+                    {/* CreditCard affiche le crédit actuel */}
+                    <CreditCard credit={user?.credit} />
 
                     <div className="profile-actions">
                         <button className="follow-button">
@@ -95,16 +110,13 @@ const UserProfile = () => {
                 </>
             )}
 
-            {/* Tabs to switch between Posts, Articles, Commandes, Favorites */}
             <Tabs value={activeTab} onChange={handleTabChange} centered>
                 <Tab label="Posts" />
-                <Tab label="Articles" /> 
+                <Tab label="Articles" />
                 <Tab label="Commandes" />
-                <Tab label="CommandesEffectues" />
-               
+                <Tab label="Favorites" />
             </Tabs>
 
-            {/* Display the component based on the selected tab */}
             {activeTab === 0 && (
                 <div className="posts-container">
                     {data?.posts?.length > 0 ? (
@@ -132,11 +144,17 @@ const UserProfile = () => {
                 </div>
             )}
 
-            {activeTab === 1 && <Articles />} 
-            {activeTab === 2 && <Commandes />} 
-            {activeTab === 3 && <Favorites />} 
+            {activeTab === 1 && <Articles />}
+            {activeTab === 2 && <Commandes />}
+            {activeTab === 3 && <Favorites />}
 
-            <RechargeCreditModal show={showModal} handleClose={() => setShowModal(false)} userId={user?.id} />
+            {/* RechargeCreditModal - passez handleCreditUpdate */}
+            <RechargeCreditModal
+                show={showModal}
+                handleClose={() => setShowModal(false)}
+                userId={user?.id}
+                onCreditUpdate={handleCreditUpdate} // Mettre à jour le crédit après achat
+            />
 
             <CustomAlert
                 show={alertVisible}

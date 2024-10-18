@@ -77,10 +77,7 @@ const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, medi
                  <Vue postId={id} initialViews={views}/>
                 <Favoris id={id}/>
             </div>
-            <div className="card-body d-flex p-0 mt-3">
-                <Followers userId={idUser}/>
-                <Followings/>
-            </div>
+           
             {showComments && <CommentSection postId={id}/>}
             <OptionsModal show={showOptionsModal} handleClose={handleOptionsModal} postId={id}/>
 
