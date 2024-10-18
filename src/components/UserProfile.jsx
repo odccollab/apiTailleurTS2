@@ -81,13 +81,13 @@ const UserProfile = () => {
                                 <FaFileAlt className="icon" /> <strong>{data?.posts?.length}</strong> Publications
                             </button>
                             <button className="stat-button">
-                                <FaUserFriends className="icon" /> <strong>{user.followers}</strong> Abonnés
+                                <FaUserFriends className="icon" /> <strong>{user.followers}</strong> 
                                 <div className="followers-container">
                                     <Followers userId={user?.id} />
                                 </div>
                             </button>
                             <button className="stat-button">
-                                <FaUserCheck className="icon" /> <strong>{user.following}</strong> Abonnements
+                                <FaUserCheck className="icon" /> <strong>{user.following}</strong> 
                                 <div className="followings-container">
                                     <Followings />
                                 </div>
@@ -114,6 +114,7 @@ const UserProfile = () => {
                 <Tab label="Posts" />
                 <Tab label="Articles" />
                 <Tab label="Commandes" />
+                <Tab label="Commandes Effectuées" />
                 <Tab label="Favorites" />
             </Tabs>
 

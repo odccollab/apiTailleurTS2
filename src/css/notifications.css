@@ -1,10 +1,13 @@
 :root {
-    --primary-color: #0095f6;
-    --text-primary: #262626;
-    --text-secondary: #8e8e8e;
-    --bg-hover: #fafafa;
-    --border-color: #dbdbdb;
-    --error-color: #ed4956;
+    --primary-color: #006bbf;
+    --secondary-color: #004a80;
+    --highlight-color: #00bfff;
+    --text-primary: #1c3d5a;
+    --text-secondary: #7f8c99;
+    --bg-hover: #e6f4ff;
+    --border-color: #d1e3f0;
+    --error-color: #ff4d4f;
+    --bg-light: #f5faff;
 }
 
 * {
@@ -14,21 +17,22 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #fafafa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
     color: var(--text-primary);
-    line-height: 1.5;
 }
 
 .notifications-container {
-    max-width: 1100px;
-    width: 100%;
-    margin: 8% 20%;
-    background: white;
+    max-width: 800px;
+    margin: 150px auto; /* Augmente le margin-top à 100px */
+    background-color: #fff;
     border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    padding: 30px;
+    border: 5px solid var(--border-color);
 }
+
 
 .notifications-header {
     padding: 16px 24px;
@@ -39,63 +43,40 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
 }
 
 .header-title {
     font-size: 24px;
-    font-weight: 600;
+    color: var(--primary-color);
+    font-weight: 700;
 }
 
 .mark-read-btn {
-    color: var(--primary-color);
-    font-weight: 600;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.filters {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    scrollbar-width: none;
-}
-
-.filters::-webkit-scrollbar {
-    display: none;
-}
-
-.filter-btn {
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: none;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s ease;
-    background: #efefef;
-    color: var(--text-primary);
-}
-
-.filter-btn.active {
-    background: var(--primary-color);
+    background-color: var(--highlight-color);
     color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.mark-read-btn:hover {
+    background-color: var(--secondary-color);
 }
 
 .notification-list {
-    max-height: 70vh;
+    margin-top: 20px;
+    max-height: 500px;
     overflow-y: auto;
 }
 
 .notification-item {
     display: flex;
-    padding: 16px 24px;
+    padding: 15px 10px;
     border-bottom: 1px solid var(--border-color);
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s;
+    align-items: center;
     position: relative;
 }
 
@@ -104,31 +85,29 @@ body {
 }
 
 .avatar {
-    width: 44px;
-    height: 44px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    margin-right: 16px;
-    object-fit: cover;
+    margin-right: 20px;
 }
 
 .notification-content {
-    flex: 1;
-    min-width: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .notification-text {
-    font-size: 14px;
-    margin-bottom: 4px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 1.4;
 }
 
 .notification-meta {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
+    margin-top: 5px;
 }
 
 .notification-time {
@@ -137,77 +116,43 @@ body {
 }
 
 .notification-new {
-    width: 8px;
-    height: 8px;
-    background-color: var(--primary-color);
+    background-color: var(--highlight-color);
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
 }
 
 .notification-actions {
-    opacity: 0;
-    position: absolute;
-    right: 24px;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: opacity 0.2s ease;
-}
-
-.notification-item:hover .notification-actions {
-    opacity: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .action-btn {
     background: none;
     border: none;
-    padding: 8px;
     cursor: pointer;
+    padding: 8px;
     color: var(--text-secondary);
-    border-radius: 50%;
+    font-size: 20px;
 }
 
 .action-btn:hover {
-    background-color: #efefef;
-}
-
-.load-more {
-    padding: 16px;
-    text-align: center;
-    border-top: 1px solid var(--border-color);
-}
-
-.load-more-btn {
     color: var(--primary-color);
-    font-weight: 600;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
 }
 
-.text-center {
-    text-align: center;
-}
-
-/* Conteneur des actions de notification */
-.notification-actions {
-    position: relative;
-    display: inline-block;
-}
-
-/* Masquer l'option de suppression par défaut */
 .action-menu {
     display: none;
     position: absolute;
-    top: 20px;
+    top: 30px;
     right: 0;
-    background-color: white;
+    background-color: #fff;
+    padding: 10px;
     border: 1px solid var(--border-color);
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 
-/* Afficher l'option de suppression au survol */
 .notification-item:hover .action-menu {
     display: block;
 }
@@ -219,21 +164,22 @@ body {
     cursor: pointer;
 }
 
-.action-menu button:hover {
-    text-decoration: underline;
+.load-more {
+    margin-top: 20px;
+    text-align: center;
 }
 
-.notification-item.unread {
-    background-color: #f0f8ff; /* Couleur pour les non lues */
+.load-more-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.notification-item.read {
-    background-color: #ffffff; /* Couleur pour les lues */
-}
-
-.notification-new {
-    background-color: red;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+.load-more-btn:hover {
+    background-color: var(--secondary-color);
 }
