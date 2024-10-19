@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { AuthLayout } from './layouts/AuthLayout';
+import FormComponent from "./components/FormComponent.jsx";
 import NavHeader from "./components/NavHeader";
 import NavigationLeft from "./components/NavigationLeft";
 import AppFooter from "./components/AppFooter";
@@ -10,6 +11,7 @@ import StoryModal from "./components/StoryModal";
 import SearchComponent from "./components/SearchComponent.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import Notification from "./components/Notifications.jsx"
+import ProductManagement from './components/ProductManagement';
 // Lazy-loaded components
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const RegisterPage = lazy(() => import('./pages/RegisterPage'));
@@ -57,7 +59,12 @@ const App = () => (
                                 rightchat={<RightChat element={<MessageSection />} />}
                             />
                         } />
-                        <Route path="/shop" element={<MainApp content={<ArticlePage />} />} />
+                        <Route path="/shop" element={
+                            <MainApp
+                                content={<ArticlePage />}
+                                rightchat={<RightChat element={<ProductManagement />} />}
+                            />
+                        } />
                         <Route path="/stories" element={<MainApp content={<StoriesPage />} />} />
                         <Route path="/search" element={<MainApp content={<SearchComponent />} />} />
                         <Route path="/notifications" element={<MainApp content={<Notification />} />} />
