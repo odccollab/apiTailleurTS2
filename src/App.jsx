@@ -50,7 +50,7 @@ const App = () => (
                     <Route element={<AuthLayout />}>
                         <Route path="/" element={<MainApp content={<MainContent />} />} />
                         <Route path="/video" element={<MainApp content={<MainContent />} />} />
-                        <Route path="/profile" element={<MainApp content={<UserProfile/>} />} />
+                        <Route path="/profile/:idUser?" element={<MainApp content={<UserProfile/>} />} />
                         <Route path="/discussion" element={
                             <MainApp
                                 content={<HandleMessage />}

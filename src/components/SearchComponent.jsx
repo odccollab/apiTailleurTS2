@@ -115,7 +115,7 @@ const SearchComponent = () => {
                                 Posts
                             </h2>
                             {posts.map(post => (
-                                <div className="bg-blue-600 p-4 rounded-lg shadow-md mb-4 text-white post-div" key={post.id}>
+                                <div className=" p-4 rounded-lg shadow-md mb-4 text-white post-div" key={post.id}>
                                     <PostItem
                                         key={post.id}
                                         userImage={`${post.user.image}`}

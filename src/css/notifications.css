@@ -23,10 +23,11 @@ body {
 }
 
 .notifications-container {
-    max-width: 800px;
-    margin: 150px auto; /* Augmente le margin-top à 100px */
+    max-width: 1200px;
+    width: 100%;
+    margin: 130px auto; /* Augmente le margin-top à 100px */
     background-color: #fff;
-    border-radius: 15px;
+    border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     padding: 30px;
@@ -35,8 +36,8 @@ body {
 
 
 .notifications-header {
-    padding: 16px 24px;
-    border-bottom: 1px solid var(--border-color);
+    padding: 0px 24px;
+    border-bottom: 2px solid var(--border-color);
 }
 
 .header-top {
@@ -46,7 +47,7 @@ body {
 }
 
 .header-title {
-    font-size: 24px;
+    font-size: 25px;
     color: var(--primary-color);
     font-weight: 700;
 }
@@ -66,8 +67,8 @@ body {
 }
 
 .notification-list {
-    margin-top: 20px;
-    max-height: 500px;
+    margin-top: 10px;
+    max-height: 900px;
     overflow-y: auto;
 }
 

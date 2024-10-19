@@ -13,6 +13,7 @@ const Notifications = () => {
 
     useEffect(() => {
         if (notification && notification.notifications) {
+            console.log(notification.notifications);
             setNotifications(notification.notifications);
         }
     }, [notification]);
@@ -47,10 +48,8 @@ const Notifications = () => {
             <div className="notifications-header">
                 <div className="header-top">
                     <h1 className="header-title">Notifications</h1>
-                    {/* <button className="mark-read-btn" onClick={markAllAsRead}>Tout marquer comme lu</button> */}
                 </div>
             </div>
-
             <div className="notification-list">
                 {notifications.length > 0 ? (
                     notifications.slice(0, visibleNotifications).map((notif) => (
@@ -88,22 +87,26 @@ const Notifications = () => {
                         </div>
                     ))
                 ) : (
-                    <p className="text-center">Aucune notification.</p>
+                    <div className="no-notifications-message">
+                        <p>Aucune notification !!!</p>
+                    </div>
                 )}
             </div>
 
-            <div className="load-more">
-                {visibleNotifications < notifications.length && (
-                    <button className="load-more-btn" onClick={loadMoreNotifications}>
-                        <FontAwesomeIcon icon={faChevronDown} /> Voir plus
-                    </button>
-                )}
-                {visibleNotifications > 1 && (
-                    <button className="load-more-btn" onClick={showFewerNotifications}>
-                        <FontAwesomeIcon icon={faChevronUp} /> Voir moins
-                    </button>
-                )}
-            </div>
+            {notifications.length > 0 && (
+                <div className="load-more">
+                    {visibleNotifications < notifications.length && (
+                        <button className="load-more-btn" onClick={loadMoreNotifications}>
+                            <FontAwesomeIcon icon={faChevronDown} /> Voir plus
+                        </button>
+                    )}
+                    {visibleNotifications > 1 && (
+                        <button className="load-more-btn" onClick={showFewerNotifications}>
+                            <FontAwesomeIcon icon={faChevronUp} /> Voir moins
+                        </button>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

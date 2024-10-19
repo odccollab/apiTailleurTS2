@@ -1,10 +1,10 @@
 /* Conteneur principal pour le profil utilisateur */
 .profile-container {
     max-width: 1000px;
-    width: 100vw;
-    margin: 0 auto;
-    padding: 200px;
-    background-color: white;
+    width: 150vw;
+    margin: 130px auto;
+    padding: 100px;
+    background-color:   white;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -97,26 +97,31 @@
 
 /* Section des publications (Posts) */
 .posts-container {
-    margin-top: 30px;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr); /* Grille pour les publications */
-    gap: 20px;
+    margin-top: 20px; /* Espace au-dessus du conteneur des posts */
+    /* display: flex; */
+    flex-direction: column; 
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    gap: 20px; /* Espacement entre les publications */
 }
 
+/* Éléments de publication */
 .post-item {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    background-color: #f9f9f9; /* Fond gris clair */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    overflow: hidden; /* Évite le débordement de contenu */
+    transition: transform 0.2s; /* Animation de survol */
 }
 
 /* Image de publication */
 .post-item img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    width: 100%; /* Prend toute la largeur du conteneur */
+    height: 200px; /* Hauteur fixe pour les images */
+    object-fit: cover; /* Rappel à la couverture de l'image */
+    border-top-left-radius: 8px; /* Coins arrondis */
+    border-top-right-radius: 8px; /* Coins arrondis */
 }
 
 /* Contenu de la publication */
