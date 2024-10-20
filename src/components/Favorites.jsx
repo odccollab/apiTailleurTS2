@@ -37,7 +37,7 @@ const Favorites = () => {
                 <PostItem
                     key={post.id}
                     userImage={post.user?.image || '/images/default-user.jpg'}
-                    userName={`${post.user?.prenom || 'Utilisateur'} ${post.user?.nom || ''}`}
+                    userName={`${post.user?.prenom || 'Feeling Style'} ${post.user?.nom || ''}`}
                     timeAgo={new Date(post.createdAt).toLocaleString()}
                     content={post.contenu || 'Pas de contenu'}
                     media={post.contenuMedia || ''}
