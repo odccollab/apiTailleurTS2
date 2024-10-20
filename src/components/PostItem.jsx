@@ -15,7 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import Likes from "./Likes.jsx";
-const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, media, id ,views,idUser}) => {
+const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments, media, id ,views,idUser,favorite}) => {
     const [showOptionsModal, setShowOptionsModal] = useState(false);
     const [showComments, setShowComments] = useState(false);
     const [showLikes, setShowLikes] = useState(false);
@@ -62,20 +62,11 @@ const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, medi
             )}
 
             <div className="post-footer d-flex align-items-center justify-content-between p-3">
-                {!showLikes && (
-                    <div>
-                        <IconButton onClick={handleLikeClick}>
-                            <ThumbUpIcon />
-                        </IconButton>
-                        <IconButton onClick={handleDislikeClick}>
-                            <ThumbDownIcon />
-                        </IconButton>
-                    </div>
-                )}
-                {showLikes && <Likes id={id} />}
+
+                { <Likes id={id} likeStatus={likeStatus} />}
                 <button onClick={handleCommentToggle}><MessageCircle/> {comments} Comments</button>
                  <Vue postId={id} initialViews={views}/>
-                <Favoris id={id}/>
+                <Favoris id={id} favorite={favorite}/>
             </div>
             <div className="card-body d-flex p-0 mt-3">
                 <Followers userId={idUser}/>

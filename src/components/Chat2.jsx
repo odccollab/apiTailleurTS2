@@ -65,14 +65,14 @@ const ChatForm = React.memo(({ onSendMessage }) => {
 
 const Chat = () => {
     const { id, user } = useAuth();
-    const { data, isLoading } = useFetch(`users/discussion/${id}`);
     const [messages, setMessages] = useState([]);
+    const { data, isLoading } = useFetch(`users/discussion/${id}`);
 
     useEffect(() => {
         if (data) {
             setMessages(data);
         }
-    }, [data]);
+    });
 
     const handleSendMessage = useCallback((newMessage) => {
         setMessages(prevMessages => [...prevMessages,newMessage]);
