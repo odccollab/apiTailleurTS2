@@ -8,11 +8,11 @@ import CreditCard from './CreditCard';
 import CustomAlert from './Alert/CustomAlert';
 import PostItem from './PostItem';
 import '../css/userProfile.css'
-import Articles from './Articles'; 
-import Commandes from './Commandes'; 
+// import Articles from './Articles'; 
+// import Commandes from './Commandes'; 
 import { DotTyping } from './DotTyping';
 
-import Favorites from './Favorites'; 
+// import Favorites from './Favorites'; 
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
