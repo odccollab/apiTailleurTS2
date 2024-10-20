@@ -29,7 +29,7 @@ const UserProfile = () => {
 
     // Fetch des données du profil utilisateur avec useFetch
     const { data: userData, loading: userLoading, error: userError } = useFetch(profileUrl);
-
+console.log(userData);
     // Utiliser la même logique pour les posts de l'utilisateur
     const postEndpoint = userData?.user?.id ? `posts/postall-user?userId=${userData.user.id}` : `posts/postall-user?userId=${idUser}`;
     const dataHandler = (newData) => ({

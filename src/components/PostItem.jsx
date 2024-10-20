@@ -92,7 +92,7 @@ const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, medi
                     </div>
                 )}
                 {showLikes && <Likes id={id} />}
-                <button onClick={handleCommentToggle}><MessageCircle /> {comments} Comments</button>
+                <button  className='comment-icone' onClick={handleCommentToggle}><MessageCircle /> {comments} </button>
                 <Vue postId={id} initialViews={views} />
                 <Favoris id={id} />
             </div>

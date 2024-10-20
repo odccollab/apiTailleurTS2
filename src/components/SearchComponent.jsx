@@ -57,14 +57,14 @@ const SearchComponent = () => {
 
     return (
         <div className="search-results-page mx-auto p-4 bg-white rounded-lg shadow-lg mt-8">
-            <CustomAlert
+            {/* <CustomAlert
                 show={alertVisible}
                 title={alertConfig.title}
                 message={alertConfig.message}
                 icon={alertConfig.icon}
                 confirmText={alertConfig.confirmText}
-                onConfirm={() => setAlertVisible(false)} // Fermer l'alerte au clic
-            />
+                onConfirm={() => setAlertVisible(false)} 
+            /> */}
 
             <div className="search-header mb-4">
                 <h2 className="text-center text-xl font-bold text-blue-600">
@@ -82,7 +82,7 @@ const SearchComponent = () => {
                 </div>
             )}
 
-            {saveError && <p className="text-red-500 text-center">Erreur lors de la récupération des données : {saveError.message}</p>}
+            {saveError && <p className="text-red-500 text-center">{saveError}</p>}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
                 {/* Résultats des utilisateurs */}
