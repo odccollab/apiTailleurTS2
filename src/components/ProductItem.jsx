@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { CheckCircle } from 'lucide-react';
-
+import "../css/produitCard.css";
 import useFetch from '../backend/Services/useFetch';
 import useSave from '../backend/Services/useSave';
+import { Plus, Minus, Check, X } from 'lucide-react';
 
 
 
@@ -62,16 +63,19 @@ const ProductCard = ({ product }) => {
       setShowInput(true);
     };
   
-    const handleQuantityChange = (e) => {
-      setQuantity(e.target.value);
+    const handleCancelClick = () => {
+      setShowInput(false);
+      setQuantity(1);
+    };
+  
+    const handleQuantityChange = (e) => {newOrderData
+      setQuantity(+e.target.value);
     };
   
     const handleConfirmOrder = async () => {
       if (quantity > 0) {
         try {
-            console.log(quantity);
-            
-          const newOrderData = await saveData('users/commande', {
+           await saveData('users/commande', {
             articles: [
               {
                 idArticle: product.id,
@@ -79,13 +83,11 @@ const ProductCard = ({ product }) => {
               }
             ]
           });
-          setPopupMessage(`commande confirmé ${quantity} ${product.libelle}(s)!`);
+          setPopupMessage(`Commande confirmée: ${quantity} ${product.libelle}(s)!`);
           setShowPopup(true);
           setShowInput(false);
           setQuantity(1);
         } catch (err) {
-            console.log(err);
-
           console.error('Error placing order:', err);
           setPopupMessage('Erreur lors de la commande. Veuillez réessayer.');
           setShowPopup(true);
@@ -94,7 +96,7 @@ const ProductCard = ({ product }) => {
     };
   
     return (
-      <div className="col-lg-4 col-md-6 mb-4 position-relative">
+      <div className="col-lg-4 col-md-6 mb-4">
         <div className="card h-100 border-0 shadow-sm">
           <img
             className="card-img-top"
@@ -112,32 +114,42 @@ const ProductCard = ({ product }) => {
             }}
           />
           <div className="card-body">
-            <h5 className="card-title fw-bold text-dark"> nom : {product.libelle || 'Unnamed Product'}</h5>
+            <h5 className="card-title fw-bold text-dark">nom : {product.libelle || 'Unnamed Product'}</h5>
             <p className="card-text text-muted">categorie : {product.categorie || 'No description available'}</p>
-            <p className="text-muted fs-5"> prix ${product.prixUnitaire?.toFixed(2) || 'N/A'}</p>
+            <p className="text-muted fs-5">prix ${product.prixUnitaire?.toFixed(2) || 'N/A'}</p>
             <p className="text-muted fs-5">Stock: {product.quantiteStock ?? 'Unknown'}</p>
   
             {!showInput ? (
               <button
-                className="btn btn-primary"
+                className="btn btn-primary w-100 text-white"
                 onClick={handleOrderClick}
               >
                 Commander
               </button>
             ) : (
-              <div className="input-group mb-3">
-                <input
-                  type="number"
-                  className="form-control"
-                  value={quantity}
-                  onChange={handleQuantityChange}
-                  min="1"
-                />
+              <div className="d-flex flex-column">
+                <div className="input-group mb-2">
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                    min="1"
+                  />
+                  <button
+                    className="btn btn-success"
+                    onClick={handleConfirmOrder}
+                  >
+                    <Check size={18} className="me-2" />
+                    Valider
+                  </button>
+                </div>
                 <button
-                  className="btn btn-success"
-                  onClick={handleConfirmOrder}
+                  className="btn btn-danger w-100"
+                  onClick={handleCancelClick}
                 >
-                  Valider
+                     <X size={18} className="me-2" />
+                  Annuler
                 </button>
               </div>
             )}
@@ -148,11 +160,11 @@ const ProductCard = ({ product }) => {
           <div className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style={{ backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1050 }}>
             <div className="bg-white p-4 rounded shadow-lg">
               <div className="d-flex justify-content-between align-items-center mb-3">
-                <h5 className="mb-0"> Confirmation</h5>
+                <h5 className="mb-0">Confirmation</h5>
                 <button className="btn btn-close" onClick={() => setShowPopup(false)}></button>
               </div>
               <p>{popupMessage}</p>
-              <button className="btn btn-primary mt-2" onClick={() => setShowPopup(false)}>Close</button>
+              <button className="btn btn-primary mt-2" onClick={() => setShowPopup(false)}>Fermer</button>
             </div>
           </div>
         )}
