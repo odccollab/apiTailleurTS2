@@ -23,7 +23,7 @@ const PostCommentaire = ({ postId }) => {
         if (newComment.trim()) {
             try {
                 const newCommentData = await saveData(`posts/${postId}/comment`, { postId, text: newComment });
-                setComments([...comments, newCommentData]);
+                setComments([newCommentData,...comments]);
                 setNewComment('');
             } catch (err) {
                 console.error('Error saving comment:', err);
@@ -89,7 +89,7 @@ const PostCommentaire = ({ postId }) => {
                 {error && <p className="error-message">Error: {error.message}</p>}
                 {visibleComments.map(comment => (
                     <div key={comment.id} className="comment-item">
-                        <img src={comment.user.image} alt="Commenter" className="commenter-avatar" />
+                        {/* <img src={comment.user.image} alt="Commenter" className="commenter-avatar */}
                         <div className="comment-content">
                             <div className="comment-header">
                                 <p className="commenter-name">{comment.user.nom}</p>
@@ -120,7 +120,7 @@ const PostCommentaire = ({ postId }) => {
                     </div>
                 ))}
 
-                {comments && comments.length > 2 && (
+                {Array.isArray(comments) && comments.length > 2 && (
                     <button className="toggle-comments-button" onClick={toggleComments}>
                         {showAllComments ? <><ChevronUp /> See less</> : <><ChevronDown /> See more</>}
                     </button>

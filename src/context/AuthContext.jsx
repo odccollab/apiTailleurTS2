@@ -8,6 +8,11 @@ export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
     const [id, setId] = useState(0);
+    const [articles, setArticles] = useState([]);
+
+  const addArticle = (newArticle) => {
+    setArticles(prevArticles => [...prevArticles, newArticle]);
+  };
     const prevIdRef = useRef(id);
     const navigate = useNavigate();
 
@@ -68,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, login, logout ,id,setId}}>
+        <AuthContext.Provider value={{ isAuthenticated, user, login, logout ,id,setId,articles,setArticles,addArticle}}>
             {children}
         </AuthContext.Provider>
     );
