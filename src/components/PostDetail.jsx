@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PostItem from './PostItem';
 import useFetch from '../backend/Services/useFetch';
-import '../css/postItem.css';
+import '../css/postDetail.css';
 const PostDetail = () => {
     const { id } = useParams(); // Récupérer l'ID du post depuis l'URL
     const { data: post, loading, error } = useFetch(`posts/${id}`); // Récupérer les détails du post
@@ -36,7 +36,7 @@ const PostDetail = () => {
                         idUser={postData.user?.id}
                     />
                     {/* Afficher les médias si plusieurs */}
-                    {Array.isArray(postData.contenuMedia) && postData.contenuMedia.length > 0 && (
+                    {/* {Array.isArray(postData.contenuMedia) && postData.contenuMedia.length > 0 && (
                         <div className="post-media-gallery">
                             {postData.contenuMedia.map((media, index) => (
                                 <img
@@ -47,7 +47,7 @@ const PostDetail = () => {
                                 />
                             ))}
                         </div>
-                    )}
+                    )} */}
                 </>
             ) : (
                 <p>Aucun post trouvé.</p>
