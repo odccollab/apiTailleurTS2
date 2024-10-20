@@ -23,7 +23,7 @@ const PostCommentaire = ({ postId }) => {
         if (newComment.trim()) {
             try {
                 const newCommentData = await saveData(`posts/${postId}/comment`, { postId, text: newComment });
-                setComments([...comments, newCommentData]);
+                setComments([newCommentData,...comments]);
                 setNewComment('');
             } catch (err) {
                 console.error('Error saving comment:', err);

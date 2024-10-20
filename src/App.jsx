@@ -24,31 +24,45 @@ const ArticlePage = lazy(() => import('./pages/ArticlePage'));
 const StoriesPage = lazy(() => import('./pages/StoriesPage'));
 
 // Loading component
-const Loading = () => <div>Loading...</div>;
+const Loading = () => <div>
+    <div className="preloader-wrap p-3">
+        <div>Loading posts...</div>
+        {[...Array(3)].map((_, index) => (
+            <div className="box shimmer mb-3" key={index}>
+                <div className="lines">
+                    <div className="line s_shimmer"></div>
+                    <div className="line s_shimmer"></div>
+                    <div className="line s_shimmer"></div>
+                    <div className="line s_shimmer"></div>
+                </div>
+            </div>
+        ))}
+    </div>
+</div>;
 
-const MainApp = ({ content, rightchat = <RightChat /> }) => (
+const MainApp = ({content, rightchat = <RightChat/>}) => (
     <div className="main-wrapper">
-        <NavHeader />
-        <NavigationLeft />
-        <Suspense fallback={<Loading />}>
+        <NavHeader/>
+        <NavigationLeft/>
+        <Suspense fallback={<Loading/>}>
             {content}
         </Suspense>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading/>}>
             {rightchat}
         </Suspense>
-        <AppFooter />
-        <StoryModal />
-        <ChatModal />
+        <AppFooter/>
+        <StoryModal/>
+        <ChatModal/>
     </div>
 );
 
 const App = () => (
     <Router>
         <AuthProvider>
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<Loading/>}>
                 <Routes>
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/login" element={<LoginPage/>}/>
+                    <Route path="/register" element={<RegisterPage/>}/>
                     <Route element={<AuthLayout />}>
                         <Route path="/" element={<MainApp content={<MainContent />} />} />
                         <Route path="/video" element={<MainApp content={<MainContent />} />} />
