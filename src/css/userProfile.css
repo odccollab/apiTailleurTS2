@@ -39,7 +39,7 @@
 
 .user-posts {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 16px;
     justify-content: center;
 }
@@ -91,7 +91,7 @@
     position: relative;
     left: 25%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+    grid-template-columns: repeat(1, 1fr); /* 3 colonnes */
     gap: 20px; /* Espace entre les cartes */
     justify-content: center; /* Centre la grille dans le conteneur */
     padding: 20px;
@@ -204,7 +204,7 @@
 .posts-container {
     margin-top: 30px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 20px;
 }
 

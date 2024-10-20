@@ -74,12 +74,18 @@ const PostItem = ({ userImage, userName, timeAgo, content, likes, comments, medi
                     </div>
                 )}
                 {showLikes && <Likes id={id} />}
+<<<<<<< HEAD
                 <button className="comment-button" onClick={handleCommentToggle}>
                     <MessageCircle />
                     {/* <span>{comments} Comments</span> */}
                 </button>
                 <Vue postId={id} initialViews={views} />
                 <Favoris id={id} />
+=======
+                <button onClick={handleCommentToggle}><MessageCircle/> {comments} Comments</button>
+                 <Vue postId={id} initialViews={views}/>
+                <Favoris id={id}/>
+>>>>>>> bb6f452272c6a72a82affb7d2a2fcb339fe68e61
             </div>
             <div className="card-body d-flex p-0 mt-3">
                 <Followers userId={idUser} />

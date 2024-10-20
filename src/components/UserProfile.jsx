@@ -1,40 +1,60 @@
 import React, { useState, useEffect } from 'react';
-import { FaUserPlus, FaFileAlt, FaCreditCard, FaUserFriends, FaUserCheck } from 'react-icons/fa'; // Import des icônes
-import '../css/userProfile.css';
+import { FaUserPlus, FaFileAlt, FaCreditCard, FaUserFriends, FaUserCheck } from 'react-icons/fa';
+import { Tabs, Tab } from '@mui/material';
 import useFetch from '../backend/Services/useFetch';
-import RechargeCreditModal from './modals/RechargeCreditModal'; // Import du composant modal
-import CreditCard from './CreditCard'; // Import du composant CreditCard
-import CustomAlert from './Alert/CustomAlert'; // Import du composant CustomAlert
+import useInfiniteScroll from '../backend/Services/useInfiniteScroll'; // Import du hook d'infinite scroll
+import RechargeCreditModal from './modals/RechargeCreditModal';
+import CreditCard from './CreditCard';
+import CustomAlert from './Alert/CustomAlert';
+import PostItem from './PostItem';
+import '../css/userProfile.css'
+import Articles from './Articles'; 
+import Commandes from './Commandes'; 
+import { DotTyping } from './DotTyping';
+
+import Favorites from './Favorites'; 
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
-    const [posts, setPosts] = useState([]);
-    const [showModal, setShowModal] = useState(false); // État pour afficher ou masquer le modal
-    const [alertVisible, setAlertVisible] = useState(false); // État pour afficher l'alerte
+    const [showModal, setShowModal] = useState(false);
+    const [alertVisible, setAlertVisible] = useState(false);
     const [alertConfig, setAlertConfig] = useState({});
+    const [activeTab, setActiveTab] = useState(0); // State to track active tab
 
-    const { data, loading, error } = useFetch("users/profile");
+    const { data: userData, loading: userLoading, error: userError } = useFetch("users/profile");
 
-    // Met à jour l'état une fois les données récupérées
+    const postEndpoint = userData?.user?.id ? `posts/postall-user?userId=${userData.user.id}` : 'posts/postall-user';
+    const dataHandler = (newData) => ({
+        posts: [...(data.posts || []), ...(newData.posts || [])],
+
+    });
+    
+    const {
+        data = { posts: [] },
+        loading,
+        hasMore
+    } = useInfiniteScroll(postEndpoint, 10, { posts: [] }, dataHandler);
+
     useEffect(() => {
-        if (data) {
-            setUser(data.user);
-            setPosts(data.user.posts);
+        if (userData) {
+            setUser(userData.user);
         }
-
-        // Afficher une alerte en cas d'erreur
-        if (error) {
+        if (userError) {
             setAlertConfig({
                 title: 'Erreur',
-                message: error,
+                message: userError,
                 icon: 'error',
                 confirmText: 'OK',
             });
             setAlertVisible(true);
         }
-    }, [data, error]);
+    }, [userData, userError]);
 
-    if (loading) return <p>Chargement...</p>;
+    const handleTabChange = (event, newValue) => {
+        setActiveTab(newValue); // Update active tab
+    };
+
+    if (userLoading) return <p>Chargement...</p>;
 
     return (
         <div className="profile-container">
@@ -42,7 +62,7 @@ const UserProfile = () => {
                 <>
                     <div className="profile-header">
                         <img
-                            src={user.image || "apiTailleurTS2/src/images/uifaces-popular-image.jpg"}
+                            src={user.image || "/images/uifaces-popular-image.jpg"}
                             alt="profile"
                             className="profile-image"
                         />
@@ -50,7 +70,7 @@ const UserProfile = () => {
                         <p className="profile-username">@{user.nom}</p>
                         <div className="profile-stats">
                             <button className="stat-button">
-                                <FaFileAlt className="icon" /> <strong>{posts.length}</strong> Publications
+                                <FaFileAlt className="icon" /> <strong>{data?.posts?.length}</strong> Publications
                             </button>
                             <button className="stat-button">
                                 <FaUserFriends className="icon" /> <strong>{user.followers}</strong> Abonnés
@@ -61,16 +81,13 @@ const UserProfile = () => {
                         </div>
                     </div>
 
-                    {/* Ajout du composant CreditCard ici */}
                     <CreditCard credit={user.credit} />
 
                     <div className="profile-actions">
                         <button className="follow-button">
                             <FaUserPlus className="icon" /> Follow
                         </button>
-                        <button className="contact-button">
-                            Contact
-                        </button>
+                        <button className="contact-button">Contact</button>
                         <button className="credit-button" onClick={() => setShowModal(true)}>
                             <FaCreditCard className="icon" /> Buy Credit
                         </button>
@@ -78,41 +95,56 @@ const UserProfile = () => {
                 </>
             )}
 
-            {posts.length > 0 ? (
+            {/* Tabs to switch between Posts, Articles, Commandes, Favorites */}
+            <Tabs value={activeTab} onChange={handleTabChange} centered>
+                <Tab label="Posts" />
+                <Tab label="Articles" /> 
+                <Tab label="Commandes" />
+                <Tab label="CommandesEffectues" />
+               
+            </Tabs>
+
+            {/* Display the component based on the selected tab */}
+            {activeTab === 0 && (
                 <div className="posts-container">
-                    {posts.map(post => (
-                        <div key={post.id} className="post-item">
-                            <img
-                                src={post.contenuMedia || "/images/default-post.jpg"}
-                                alt={post.alt || "Post image"}
-                                className="post-image"
+                    {data?.posts?.length > 0 ? (
+                        data.posts.map(post => (
+                            <PostItem
+                                key={post.id}
+                                userImage={`${post.user?.image || '/images/default-user.jpg'}`}
+                                userName={`${post.user?.prenom || 'Utilisateur'} ${post.user?.nom || ''}`}
+                                timeAgo={new Date(post.createdAt).toLocaleString()}
+                                content={post.contenu || 'Pas de contenu'}
+                                media={post.contenuMedia || ''}
+                                likes={post.likes || "0"}
+                                comments={post.comments || "0"}
+                                id={post.id}
+                                views={post.viewers || 0}
+                                idUser={post.idUser}
                             />
-                            <div className="post-content">
-                                <h3>{post.content}</h3>
-                                <p>{post.alt}</p>
-                                <div className="post-meta">
-                                    <span>{post.likes} likes</span>
-                                    <span>{post.comments} commentaires</span>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <p>Aucun post disponible.</p>
+                    )}
+                    {loading && <div>Loading more posts...</div>}
+                    {hasMore && <DotTyping />}
+                    {!hasMore && data?.posts?.length > 0 && <div>Vous avez tout vu !</div>}
                 </div>
-            ) : (
-                <p>Aucun post disponible.</p>
             )}
 
-            {/* Modal pour recharger le crédit */}
+            {activeTab === 1 && <Articles />} 
+            {activeTab === 2 && <Commandes />} 
+            {activeTab === 3 && <Favorites />} 
+
             <RechargeCreditModal show={showModal} handleClose={() => setShowModal(false)} userId={user?.id} />
 
-            {/* Composant CustomAlert pour gérer les alertes */}
             <CustomAlert
                 show={alertVisible}
                 title={alertConfig.title}
                 message={alertConfig.message}
                 icon={alertConfig.icon}
                 confirmText={alertConfig.confirmText}
-                onConfirm={() => setAlertVisible(false)} // Ferme l'alerte
+                onConfirm={() => setAlertVisible(false)}
             />
         </div>
     );
