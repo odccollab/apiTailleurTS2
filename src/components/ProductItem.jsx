@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { CheckCircle } from 'lucide-react';
-
+import "../css/produitCard.css";
 import useFetch from '../backend/Services/useFetch';
 import useSave from '../backend/Services/useSave';
 
@@ -52,114 +52,114 @@ const ProductCard = ({ product }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [popupMessage, setPopupMessage] = useState('');
     const { saveData, isSaving, error: saveError } = useSave();
-  
-    const randomImage = useMemo(() => {
-      const randomIndex = Math.floor(Math.random() * placeholderImages.length);
-      return placeholderImages[randomIndex];
-    }, []);
-  
-    const handleOrderClick = () => {
-      setShowInput(true);
-    };
-  
-    const handleQuantityChange = (e) => {
-      setQuantity(e.target.value);
-    };
-  
-    const handleConfirmOrder = async () => {
-      if (quantity > 0) {
-        try {
-            console.log(quantity);
-            
-          const newOrderData = await saveData('users/commande', {
-            articles: [
-              {
-                idArticle: product.id,
-                quantite: quantity
-              }
-            ]
-          });
-          setPopupMessage(`commande confirmé ${quantity} ${product.libelle}(s)!`);
-          setShowPopup(true);
-          setShowInput(false);
-          setQuantity(1);
-        } catch (err) {
-            console.log(err);
 
-          console.error('Error placing order:', err);
-          setPopupMessage('Erreur lors de la commande. Veuillez réessayer.');
-          setShowPopup(true);
-        }
-      }
+    const randomImage = useMemo(() => {
+        const randomIndex = Math.floor(Math.random() * placeholderImages.length);
+        return placeholderImages[randomIndex];
+    }, []);
+
+    const handleOrderClick = () => {
+        setShowInput(true);
     };
-  
+
+    const handleQuantityChange = (e) => {
+        setQuantity(+e.target.value);
+    };
+
+    const handleConfirmOrder = async () => {
+        if (quantity > 0) {
+            try {
+                console.log(quantity);
+
+                const newOrderData = await saveData('users/commande', {
+                    articles: [
+                        {
+                            idArticle: product.id,
+                            quantite: quantity
+                        }
+                    ]
+                });
+                setPopupMessage(`commande confirmé pour ${quantity} ${product.libelle}(s)`);
+                setShowPopup(true);
+                setShowInput(false);
+                setQuantity(1);
+            } catch (err) {
+                console.log(err);
+
+                console.error('Error placing order:', err);
+                setPopupMessage('Erreur lors de la commande. Veuillez réessayer.');
+                setShowPopup(true);
+            }
+        }
+    };
+
     return (
-      <div className="col-lg-4 col-md-6 mb-4 position-relative">
-        <div className="card h-100 border-0 shadow-sm">
-          <img
-            className="card-img-top"
-            src={product.imageUrl || randomImage}
-            alt={product.libelle || 'Product image'}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = randomImage;
-            }}
-            style={{
-              width: '100%',
-              height: '50%',
-              objectFit: 'cover',
-              objectPosition: 'center'
-            }}
-          />
-          <div className="card-body">
-            <h5 className="card-title fw-bold text-dark"> nom : {product.libelle || 'Unnamed Product'}</h5>
-            <p className="card-text text-muted">categorie : {product.categorie || 'No description available'}</p>
-            <p className="text-muted fs-5"> prix ${product.prixUnitaire?.toFixed(2) || 'N/A'}</p>
-            <p className="text-muted fs-5">Stock: {product.quantiteStock ?? 'Unknown'}</p>
-  
-            {!showInput ? (
-              <button
-                className="btn btn-primary"
-                onClick={handleOrderClick}
-              >
-                Commander
-              </button>
-            ) : (
-              <div className="input-group mb-3">
-                <input
-                  type="number"
-                  className="form-control"
-                  value={quantity}
-                  onChange={handleQuantityChange}
-                  min="1"
+        <div className="col-lg-4 col-md-6 mb-4 position-relative">
+            <div className="card h-100 border-0 shadow-sm">
+                <img
+                    className="card-img-top"
+                    src={product.imageUrl || randomImage}
+                    alt={product.libelle || 'Product image'}
+                    onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = randomImage;
+                    }}
+                    style={{
+                        width: '100%',
+                        height: '50%',
+                        objectFit: 'cover',
+                        objectPosition: 'center'
+                    }}
                 />
-                <button
-                  className="btn btn-success"
-                  onClick={handleConfirmOrder}
-                >
-                  Valider
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-  
-        {showPopup && (
-          <div className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style={{ backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1050 }}>
-            <div className="bg-white p-4 rounded shadow-lg">
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <h5 className="mb-0"> Confirmation</h5>
-                <button className="btn btn-close" onClick={() => setShowPopup(false)}></button>
-              </div>
-              <p>{popupMessage}</p>
-              <button className="btn btn-primary mt-2" onClick={() => setShowPopup(false)}>Close</button>
+                <div className="card-body">
+                    <h5 className="card-title fw-bold text-dark mb-2">Nom :{product.libelle || 'Unnamed Product'}</h5>
+                    <p className="card-text text-muted mb-1">Catégorie : {product.categorie || 'Non spécifié'}</p>
+                    <p className="text-primary fw-bold fs-5 mb-2">Prix : ${product.prixUnitaire?.toFixed(2) || 'N/A'}</p>
+                    <p className="text-muted mb-3">Stock : {product.quantiteStock ?? 'Inconnu'}</p>
+
+                    {!showInput ? (
+                        <button
+                            className="btn btn-primary w-100"
+                            onClick={handleOrderClick}
+                        >
+                            Commander
+                        </button>
+                    ) : (
+                        <div className="input-group mt-3">
+                            <input
+                                type="number"
+                                className="form-control"
+                                value={quantity}
+                                onChange={handleQuantityChange}
+                                min="1"
+                            />
+                            <button
+                                className="btn btn-success"
+                                onClick={handleConfirmOrder}
+                            >
+                                Valider
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
-          </div>
-        )}
-  
-        {saveError && <p className="error-message">Error placing order: {saveError.message}</p>}
-      </div>
+
+            {showPopup && (
+                <div className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style={{ backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1050 }}>
+                    <div className="bg-white p-4 rounded shadow-lg">
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <h5 className="mb-0"> Confirmation</h5>
+                            <button className="btn btn-close" onClick={() => setShowPopup(false)}></button>
+                        </div>
+                        <p>{popupMessage}</p>
+                        <button className="btn btn-primary mt-2" onClick={() => setShowPopup(false)}>Close</button>
+                    </div>
+                </div>
+            )}
+
+            {saveError && <p className="error-message">Error placing order: {saveError.message}</p>}
+        </div>
     );
-  };
-  
-  export default ProductCard;
+};
+
+export default ProductCard;
