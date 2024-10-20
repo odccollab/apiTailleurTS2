@@ -10,7 +10,7 @@
 
 .search-button {
     padding: 10px 20px;
-    background-color: blue;
+    background-color: #f9f9f9;
     color: white;
     border: none;
     cursor: pointer;
@@ -68,13 +68,14 @@ li {
 
 
 .post-div{
-    background-color: #315cb9;
+    background-color: #f9f9f9;
     border-radius: 12px;
 }
 .user-results{
-    background-color: rgb(11, 179, 151);
+    background-color:#f9f9f9;
     border-radius: 12px;
 }
+
 .search-results-page{
     margin-top: 100px;
     width: 50vw;

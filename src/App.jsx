@@ -9,7 +9,9 @@ import ChatModal from "./components/ChatModal";
 import StoryModal from "./components/StoryModal";
 import SearchComponent from "./components/SearchComponent.jsx";
 import UserProfile from "./components/UserProfile.jsx";
-import Notification from "./components/Notifications.jsx"
+import Notification from "./components/Notifications.jsx";
+import PostDetail from './components/PostDetail'; // Import du nouveau composant PostDetail
+
 // Lazy-loaded components
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const RegisterPage = lazy(() => import('./pages/RegisterPage'));
@@ -64,7 +66,7 @@ const App = () => (
                     <Route element={<AuthLayout />}>
                         <Route path="/" element={<MainApp content={<MainContent />} />} />
                         <Route path="/video" element={<MainApp content={<MainContent />} />} />
-                        <Route path="/profile" element={<MainApp content={<UserProfile/>} />} />
+                        <Route path="/profile/:idUser?" element={<MainApp content={<UserProfile />} />} />
                         <Route path="/discussion" element={
                             <MainApp
                                 content={<HandleMessage />}
@@ -75,6 +77,7 @@ const App = () => (
                         <Route path="/stories" element={<MainApp content={<StoriesPage />} />} />
                         <Route path="/search" element={<MainApp content={<SearchComponent />} />} />
                         <Route path="/notifications" element={<MainApp content={<Notification />} />} />
+                        <Route path="/posts/:id" element={<MainApp content={<PostDetail />} />} /> {/* Nouvelle route pour PostDetail */}
                     </Route>
                 </Routes>
             </Suspense>

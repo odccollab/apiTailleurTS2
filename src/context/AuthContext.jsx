@@ -53,6 +53,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('token', token); // Store token in localStorage
             const decoded = jwtDecode(token);
             setUser(decoded);
+            console.log(user);
             setIsAuthenticated(true);
         } catch (error) {
             console.error('Login failed:', error);
