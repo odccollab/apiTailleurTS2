@@ -29,7 +29,7 @@ const MainContent = () => {
     });
 
     const { data, loading, hasMore, error } = useInfiniteScroll("posts/postall", 5, { posts: [], stories: [] }, dataHandler);
-    const { data: relationData, loading: relationLoading, error: relationError } = useFetch('posts/600');
+    const { data: relationData, loading: relationLoading, error: relationError } = useFetch('users/suggested-and-not-followed');
     console.log(relationData)
     useEffect(() => {
         setPost2(data.posts);
