@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 const OptionsModal = ({ show, handleClose, postId, onPostDeleted}) => {
     const [showReportModal, setShowReportModal] = useState(false); // Contrôle du modal de signalement
     const [showShareModal, setShowShareModal] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const handleReportModal = () => {
         setShowReportModal(true); // Ouvrir le modal de signalement
