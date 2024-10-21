@@ -16,7 +16,7 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import Likes from "./Likes.jsx";
 import "../css/comment.css";
 
-const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments, media, id, views, idUser, favorite }) => {
+const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments, media, id, views, idUser, favorite ,isfollowing}) => {
 
     const [showOptionsModal, setShowOptionsModal] = useState(false);
     const [showComments, setShowComments] = useState(false);
@@ -62,7 +62,7 @@ const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments,
                 </div>
                 <div className="ms-auto flex">
                     <FollowProvider>
-                        <Follow followedId={idUser} />
+                        {isfollowing&&<Follow followedId={idUser}/>}
                     </FollowProvider>
                 </div>
                 <button className="btn-icon ms-auto" onClick={handleOptionsModal}>

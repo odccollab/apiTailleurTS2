@@ -9,6 +9,8 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [id, setId] = useState(0);
     const [articles, setArticles] = useState([]);
+    const [friendRequests, setfriendRequests] = useState([]);
+    const [suggestedFriend, setsuggestedFriend] = useState([]);
 
   const addArticle = (newArticle) => {
     setArticles(prevArticles => [...prevArticles, newArticle]);
@@ -73,7 +75,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, login, logout ,id,setId,articles,setArticles,addArticle}}>
+        <AuthContext.Provider value={{ isAuthenticated, user, login, logout ,id,setId,articles,setArticles,addArticle,friendRequests,setfriendRequests,suggestedFriend,setsuggestedFriend}}>
             {children}
         </AuthContext.Provider>
     );
