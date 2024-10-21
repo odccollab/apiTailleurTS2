@@ -133,7 +133,7 @@ const ProductCard = ({ product }) => {
                     type="number"
                     className="form-control"
                     value={quantity}
-                    onChange={handleQuantityChange}
+                    onChange={(e)=>setQuantity(+e.target.value)}
                     min="1"
                   />
                   <button

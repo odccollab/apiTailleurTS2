@@ -26,3 +26,12 @@
     border: none;
     background-color: #fff;
 }
+
+.comment-toggle-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  
