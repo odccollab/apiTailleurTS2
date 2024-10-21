@@ -4,6 +4,7 @@ import { ChevronDown, ChevronUp, Edit2, Trash2 } from 'lucide-react';
 import useFetch from '../backend/Services/useFetch';
 import useSave from '../backend/Services/useSave';
 import '../css/comment.css';
+import Swal from 'sweetalert2';
 
 const PostCommentaire = ({ postId }) => {
     const [showAllComments, setShowAllComments] = useState(false);
@@ -67,14 +68,48 @@ const PostCommentaire = ({ postId }) => {
     };
 
     const handleDeleteComment = async (commentId) => {
-        if (window.confirm('Are you sure you want to delete this comment?')) {
-            try {
+        try {
+            // Afficher la confirmation SweetAlert
+            const result = await Swal.fire({
+                title: 'Êtes-vous sûr ?',
+                text: "Vous ne pourrez pas revenir en arrière !",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, supprimer !',
+                cancelButtonText: 'Annuler',
+                reverseButtons: true
+            });
+    
+            // Si l'utilisateur confirme
+            if (result.isConfirmed) {
+                // Tentative de suppression
                 await saveData(`posts/${postId}/comment/${commentId}`, { postId }, 'DELETE');
+                
+                // Mise à jour de l'état local
                 const updatedComments = comments.filter(comment => comment.id !== commentId);
                 setComments(updatedComments);
-            } catch (err) {
-                console.error('Error deleting comment:', err);
+    
+                // Message de succès
+                await Swal.fire({
+                    title: 'Supprimé !',
+                    text: 'Le commentaire a été supprimé.',
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
             }
+        } catch (err) {
+            console.error('Error deleting comment:', err);
+            
+            // Message d'erreur
+            await Swal.fire({
+                title: 'Erreur !',
+                text: "Une erreur s'est produite lors de la suppression.",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         }
     };
 
@@ -83,7 +118,7 @@ const PostCommentaire = ({ postId }) => {
     const toggleComments = () => setShowAllComments(!showAllComments);
 
     return (
-        <div className="comments-section">
+        <div className="comments-section">loading
             <div className="comments-list">
                 {loading && <p className="loading-message">Loading comments...</p>}
                 {/* {error && <p className="error-message">Error: {error.message}</p>} */}
@@ -94,10 +129,15 @@ const PostCommentaire = ({ postId }) => {
                             <div className="comment-header">
                                 <p className="commenter-name">{comment.user.nom}</p>
                                 <div className="comment-actions">
-                                    <button onClick={() => handleEditComment(comment.id, comment.content)} className="comment-action-icon">
+                                    <button onClick={() => handleEditComment(comment.id, comment.content)} className="comment-action-icon"  title="modifier le commentaire">
+                                        
                                         <Edit2 size={16} />
                                     </button>
-                                    <button onClick={() => handleDeleteComment(comment.id)} className="comment-action-icon">
+                                    <button
+                                        onClick={() => handleDeleteComment(comment.id)}
+                                        className="comment-action-icon delete"
+                                        title="Supprimer le commentaire"
+                                    >
                                         <Trash2 size={16} />
                                     </button>
                                 </div>

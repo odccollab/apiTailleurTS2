@@ -192,3 +192,50 @@ textarea:focus {
     box-shadow: none !important;
 }
 
+/* Styles personnalisés pour SweetAlert */
+.custom-swal-popup {
+    border-radius: 15px !important;
+    background: #fff !important;
+    padding: 2rem !important;
+}
+
+.custom-swal-title {
+    color: #333 !important;
+    font-size: 1.5rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.custom-swal-content {
+    color: #666 !important;
+    font-size: 1rem !important;
+}
+
+.custom-swal-confirm {
+    background: #FF4444 !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.custom-swal-confirm:hover {
+    background: #FF0000 !important;
+    transform: translateY(-2px) !important;
+}
+
+.custom-swal-cancel {
+    background: #E0E0E0 !important;
+    color: #333 !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.custom-swal-cancel:hover {
+    background: #D0D0D0 !important;
+    transform: translateY(-2px) !important;
+}
