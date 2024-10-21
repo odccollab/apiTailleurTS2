@@ -1,0 +1,275 @@
+[33mcommit 93516d9f5989cfe1891b39583f55495a7553aaa7[m[33m ([m[1;36mHEAD -> [m[1;32mdev-diary[m[33m, [m[1;31morigin/dev-diary[m[33m)[m
+Merge: a2b6112 94d5dc9
+Author: diarietoudiop <diarietou07diop@gmail.com>
+Date:   Mon Oct 21 21:12:50 2024 +0000
+
+    a
+
+[33mcommit a2b6112de8903171ea13e2b8ff18c04a11482164[m
+Author: diarietoudiop <diarietou07diop@gmail.com>
+Date:   Mon Oct 21 20:01:40 2024 +0000
+
+    hgggggggggggggggg
+
+[33mcommit 94d5dc9cde98eb46ffd57a7887c9c58a184dcbd0[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: e6dca6f 1150ed3
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Mon Oct 21 19:55:15 2024 +0000
+
+    Merge pull request #16 from odccollab/dev-diop
+    
+    Dev diop
+
+[33mcommit 1150ed3f64c2dd0c8e0ce3a3be3593e6fa296b90[m
+Merge: b5499dc e6dca6f
+Author: diopsysteme <mhdtnboss@gmail.com>
+Date:   Mon Oct 21 18:13:06 2024 +0000
+
+    stash2
+
+[33mcommit b5499dc60a729a5d4117790d21a0713ab9dfa472[m
+Author: diopsysteme <mhdtnboss@gmail.com>
+Date:   Mon Oct 21 18:10:35 2024 +0000
+
+    stash
+
+[33mcommit e6dca6fb5ca3883b77d3814536d3e73443f1f080[m
+Merge: b70da8b 4bdb6ff
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Mon Oct 21 18:06:07 2024 +0000
+
+    Merge pull request #15 from odccollab/dev-diary
+    
+    restrictionAjoutArticle
+
+[33mcommit 4bdb6ffe5ffa8294a191577dc56ac637f08b6104[m
+Merge: 4960803 b70da8b
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Mon Oct 21 18:05:55 2024 +0000
+
+    Merge branch 'main' into dev-diary
+
+[33mcommit 49608031754676ba546baf6ea9943604575348aa[m
+Author: diarietoudiop <diarietou07diop@gmail.com>
+Date:   Mon Oct 21 12:54:13 2024 +0000
+
+    restrictionAjoutArticle
+
+[33mcommit a079a9dbc4cd6f7199e1d1fc53537fa092cf11ac[m
+Merge: 2ba10bf b70da8b
+Author: diopsysteme <mhdtnboss@gmail.com>
+Date:   Mon Oct 21 10:50:45 2024 +0000
+
+    Merge branch 'main' of github.com:odccollab/apiTailleurTS2 into dev-diop
+
+[33mcommit b70da8b42930128135b27c0056bd6e0f45827f40[m
+Merge: b89c576 f8db5f9
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Mon Oct 21 10:45:28 2024 +0000
+
+    Merge pull request #14 from odccollab/dev-sidy
+    
+    commandeVendeurs
+
+[33mcommit b89c576bae433367e357f55808392083caf04c55[m
+Merge: d0bf0d9 733e33d
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Mon Oct 21 10:44:07 2024 +0000
+
+    Merge pull request #13 from odccollab/dev-diop
+    
+    recent modif
+
+[33mcommit f8db5f95712e7ebcd66ddde8836209f82f82feed[m
+Author: sidydiopbalde <newsdb191@gmail.com>
+Date:   Mon Oct 21 10:43:55 2024 +0000
+
+    commandeVendeurs
+
+[33mcommit 2ba10bfe7a1570aae94d1e3e9bf92f91bb8c3c31[m
+Merge: 733e33d d0bf0d9
+Author: diopsysteme <mhdtnboss@gmail.com>
+Date:   Mon Oct 21 08:41:11 2024 +0000
+
+    Merge branch 'main' of github.com:odccollab/apiTailleurTS2 into dev-diop
+
+[33mcommit 733e33d9379739dcd0ca74e3e705053617053071[m
+Author: diopsysteme <mhdtnboss@gmail.com>
+Date:   Mon Oct 21 08:40:51 2024 +0000
+
+    recent modif
+
+[33mcommit d0bf0d9278eeeab473f679e135d2c8fbb1656b78[m
+Merge: 8d4ef86 47d30b1
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Mon Oct 21 08:37:29 2024 +0000
+
+    Merge pull request #12 from odccollab/dev-diary
+    
+    Dev diary
+
+[33mcommit 47d30b1ca4be3aff01a07d6e73309b4134c2a449[m
+Author: diarietoudiop <diarietou07diop@gmail.com>
+Date:   Mon Oct 21 08:24:29 2024 +0000
+
+    deletecomment and css
+
+[33mcommit a91495d420b67f62a82ed382c746d4b6cb12842f[m
+Author: diarietoudiop <diarietou07diop@gmail.com>
+Date:   Mon Oct 21 00:18:03 2024 +0000
+
+    css
+
+[33mcommit 8d4ef86852e5328c3f32a0a5816456752b9e7d7f[m
+Merge: d03a315 c229b97
+Author: sidydiopbalde1 <newsdb191@gmail.com>
+Date:   Sun Oct 20 21:33:41 2024 +0000
+
+    Merge pull request #10 from odccollab/dev-sidy
+    
+    Dev sidy
+
+[33mcommit c229b976903f6900368bff8245e0928b0000263a[m
+Merge: 4a1feb2 d03a315
+Author: sidydiopbalde <newsdb191@gmail.com>
+Date:   Sun Oct 20 21:31:57 2024 +0000
+
+    Merge branch 'main' of https://github.com/odccollab/apiTailleurTS2 into dev-sidy
+
+[33mcommit 4a1feb2891b0e130b8be786ca6cb30c2412ba053[m
+Author: sidydiopbalde <newsdb191@gmail.com>
+Date:   Sun Oct 20 21:31:17 2024 +0000
+
+    last
+
+[33mcommit 94f22de4b5b9d55d8333317e95461df6d20006cf[m
+Merge: 8d6fba2 04d6ac6
+Author: sidydiopbalde <newsdb191@gmail.com>
+Date:   Sun Oct 20 21:26:47 2024 +0000
+
+    Merge branch 'main' of https://github.com/odccollab/apiTailleurTS2 into dev-sidy
+
+[33mcommit d03a315217e1cfa60f6d9d0a0893651f4f9d4381[m
+Merge: 04d6ac6 7acf6e5
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Sun Oct 20 21:26:20 2024 +0000
+
+    Merge pull request #9 from odccollab/dev-diary
+    
+    Dev diary
+
+[33mcommit 8d6fba2b2dff036c30bfb81f42151c29b721e64b[m
+Author: sidydiopbalde <newsdb191@gmail.com>
+Date:   Sun Oct 20 20:51:51 2024 +0000
+
+    notification v_3
+
+[33mcommit 7acf6e507963585a96061d4df5b6182d98dc1632[m
+Author: diarietoudiop <diarietou07diop@gmail.com>
+Date:   Sun Oct 20 20:41:59 2024 +0000
+
+    deletepost
+
+[33mcommit 04d6ac650169748bdd4d141116002662ddc9af84[m
+Merge: c5d0dc6 800fc6d
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Sun Oct 20 20:30:40 2024 +0000
+
+    Merge pull request #8 from odccollab/dev-diop
+    
+    fixing messages
+
+[33mcommit 800fc6d254b71d80e28345f98e92042b9eb266b7[m
+Author: diopsysteme <mhdtnboss@gmail.com>
+Date:   Sun Oct 20 20:27:31 2024 +0000
+
+    fixing messages
+
+[33mcommit c5d0dc6c0e9d93639c9da44e8482dad1767a2524[m
+Merge: 79b519a 63b4f1c
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Sun Oct 20 19:54:53 2024 +0000
+
+    Merge pull request #7 from odccollab/dev-laye
+    
+    listFollowers avec suivre
+
+[33mcommit 63b4f1c89cb8c27d5fa9fa79b6599642a790b100[m
+Merge: 1108ae0 79b519a
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Sun Oct 20 19:54:36 2024 +0000
+
+    Merge branch 'main' into dev-laye
+
+[33mcommit db3469e7042ea34362fea703f9abea3f6af2d5a2[m
+Author: diarietoudiop <diarietou07diop@gmail.com>
+Date:   Sun Oct 20 19:50:05 2024 +0000
+
+    annuler commande
+
+[33mcommit 79b519a13bc2f076f5cd85d94d8ef19252e25cb1[m
+Merge: bcb2a17 ae866f6
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Sun Oct 20 19:31:17 2024 +0000
+
+    Merge pull request #6 from odccollab/dev-diary
+    
+    pavan
+
+[33mcommit ae866f607493b9de7e6eac2f019aadea30fcab22[m
+Merge: 1ff54a4 bcb2a17
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Sun Oct 20 19:31:07 2024 +0000
+
+    Merge branch 'main' into dev-diary
+
+[33mcommit bcb2a17a036651133008ea1aba5b992bff2dd615[m
+Merge: 8612080 28d2094
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Sun Oct 20 19:29:00 2024 +0000
+
+    Merge pull request #5 from odccollab/dev-diop
+    
+    diop modif
+
+[33mcommit 28d20944496bbab089890585a7d34b78536e4ab2[m
+Merge: cfabd48 8612080
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Sun Oct 20 19:27:55 2024 +0000
+
+    Merge branch 'main' into dev-diop
+
+[33mcommit cfabd4814fc17c7105238810a96eecfcd29089b0[m
+Author: diopsysteme <mhdtnboss@gmail.com>
+Date:   Sun Oct 20 19:24:45 2024 +0000
+
+    diop modif
+
+[33mcommit 86120801e6c48cc9c01e72d00ab7a4ed9fd149c7[m
+Merge: bb6f452 f9ac8be
+Author: diopsysteme <102479876+diopsysteme@users.noreply.github.com>
+Date:   Sun Oct 20 19:20:20 2024 +0000
+
+    Merge pull request #4 from odccollab/dev-sidy
+    
+    Dev sidy
+
+[33mcommit f9ac8be213d959f2b84e4eba185adc938c1b547e[m
+Author: sidydiopbalde <newsdb191@gmail.com>
+Date:   Sun Oct 20 18:27:30 2024 +0000
+
+    commit forcé
+
+[33mcommit 1108ae02814e571a8e2b0b4b1ffc5285a8d057b9[m
+Author: palaye08 <adioptp9@gmail.com>
+Date:   Sun Oct 20 17:15:47 2024 +0000
+
+    listFollowers avec suivre
+
+[33mcommit e9edec636728ebcf84f67a527f3380c1327cfaae[m[33m ([m[1;31morigin/dev-sidy[m[33m)[m
+Author: sidydiopbalde <newsdb191@gmail.com>
+Date:   Sat Oct 19 23:05:48 2024 +0000
+
+    userProfile version:2
+
+[33mcommit 1ff54a4f99f45ce09bf2d54fd3b66c3
