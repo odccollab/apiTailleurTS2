@@ -1,39 +1,50 @@
+.story-create-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .story-card {
-    width: 220px;
-    height: 320px;
-    background-color: #1c1e21;
-    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 400px;
+    max-height: 600px;
 }
 
-.story-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.modal-content {
-    border-radius: 15px;
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
-}
-
-.modal-content .modal-header, .modal-content .modal-footer {
-    border: none;
-}
-
-.modal-content .modal-header {
-    background-color: #f1f3f5;
-}
-
-.modal-content .modal-body {
-    background-color: #f8f9fa;
-}
-
-.modal-content .modal-footer button {
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
-}
-
-.modal-content .modal-footer button:hover {
-    background-color: #004085;
+.story-add-btn {
+    background: linear-gradient(135deg, #6d5dfc, #c4d8e2);
     color: white;
+    transition: transform 0.2s ease;
+}
+
+.story-add-btn:hover {
+    transform: scale(1.08);
+}
+
+.icon-wrap {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+textarea, input[type="file"] {
+    border: 2px solid #e0e0e0;
+    padding: 10px;
+    font-size: 14px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error-message {
+    font-size: 12px;
+    color: red;
 }
