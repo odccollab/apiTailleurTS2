@@ -18,7 +18,7 @@ const Vue = ({ postId, initialViews }) => {
         { method: 'GET' },
         false // Ne pas exécuter automatiquement
     );
-
+    
     const incrementViews = useCallback(() => {
         if (!hasIncrementedRef.current) {
             hasIncrementedRef.current = true;
@@ -62,7 +62,7 @@ const Vue = ({ postId, initialViews }) => {
 
     useEffect(() => {
         if (initialFetchError) {
-            setError('Échec de la récupération des vues initiales');
+            setError(/* 'Échec de la récupération des vues initiales' */);
             console.error('Initial fetch error:', initialFetchError);
         } else if (incrementError) {
             setError(/* 'Erreur lors de l\'incrémentation des vues' */);

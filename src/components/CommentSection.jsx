@@ -13,7 +13,7 @@ const PostCommentaire = ({ postId }) => {
     const [editedCommentText, setEditedCommentText] = useState('');
     const [comments, setComments] = useState([]);
 
-    const { data, loading, error } = useFetch(`posts/${postId}/comment`);
+    const { data, loading} = useFetch(`posts/${postId}/comment`);
     const { saveData, error: saveError } = useSave();
 
     useEffect(() => {

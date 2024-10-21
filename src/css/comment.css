@@ -137,10 +137,13 @@ textarea:focus {
     justify-content: flex-end;
 }
 
+/* Existing styles... */
+
+/* Updated styles for Save and Cancel buttons */
 .edit-buttons button {
     padding: 8px 16px;
     border: none;
-    border-radius: 6px;
+    border-radius: 20px; /* Make buttons round */
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -164,11 +167,12 @@ textarea:focus {
     background-color: #d1d1d1;
 }
 
+/* Make sure the Comment button is also round */
+.new-comment button {
+    border-radius: 20px;
+}
+
 @media (max-width: 768px) {
-    textarea {
-        min-height: 60px;
-    }
-    
     .edit-buttons button {
         padding: 6px 12px;
         font-size: 14px;

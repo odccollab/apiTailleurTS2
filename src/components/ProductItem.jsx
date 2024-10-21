@@ -162,7 +162,7 @@ const ProductCard = ({ product }) => {
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h5 className="mb-0">Confirmation</h5>
                 <button className="btn btn-close" onClick={() => setShowPopup(false)}></button>
-              </div>
+              </div>  
               <p>{popupMessage}</p>
               <button className="btn btn-primary mt-2" onClick={() => setShowPopup(false)}>Fermer</button>
             </div>
