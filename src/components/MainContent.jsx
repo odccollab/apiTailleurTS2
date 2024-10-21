@@ -21,6 +21,7 @@ const MainContent = () => {
     const [selectedUserStories, setSelectedUserStories] = useState(null); // Track selected user's stories
     const [order, setOrder] = useState(null); // State to store the response from delete
     const [isDeleting, setIsDeleting] = useState(false); // State to manage loading state for delete
+    const [groupedStories, setGroupedStories] = useState({});
 
     // Data handlers for infinite scroll and fetch
     const dataHandler = (newData) => ({
@@ -36,18 +37,26 @@ const MainContent = () => {
         setStory(data.stories);
     }, [data]);
 
+    useEffect(() => {
+        const groupStories = () => {
+            const grouped = stories.reduce((acc, story) => {
+                const userId = story.user.id;
+                if (!acc[userId]) {
+                    acc[userId] = {
+                        user: story.user,
+                        stories: []
+                    };
+                }
+                acc[userId].stories.push(story);
+                return acc;
+            }, {});
+            return grouped;
+        };
+
+        const groupedResult = groupStories();
+        setGroupedStories(groupedResult);
+    }, [stories]);
     // Group stories by user
-    const groupedStories = stories.reduce((acc, story) => {
-        const userId = story.user.id;
-        if (!acc[userId]) {
-            acc[userId] = {
-                user: story.user,
-                stories: []
-            };
-        }
-        acc[userId].stories.push(story);
-        return acc;
-    }, {});
 
     // Open StoryModal when a user clicks on their stories
     const handleStoryClick = (userId) => {
@@ -126,6 +135,7 @@ const MainContent = () => {
                                 idUser={post.idUser}
                                 favorite={post.favorite}
                                 likeStatus={post.likeStatus}
+                                isfollowing={post.following}
                             />
                         ))}
 
