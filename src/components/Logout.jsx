@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { ExitToApp, PowerSettingsNew, DirectionsRun, SentimentVeryDissatisfied } from '@mui/icons-material';
 
 const Logout = () => {
