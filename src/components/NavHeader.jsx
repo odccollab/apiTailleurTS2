@@ -1,6 +1,8 @@
 import SettingsDropdown from "./SettingsDropdown.jsx";
 import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {useState} from "react";
+import Logout from "./Logout.jsx";
+// import "../css/navheader.css";  // Reliez à votre fichier CSS
 
 const NavHeader = () => {
     const [searchQuery, setSearchQuery] = useState(''); // Gérer l'état de l'input de recherche
@@ -74,6 +76,8 @@ const NavHeader = () => {
             <RouterLink to="/default-settings" className="p-0 ms-3 menu-icon">
                 <img src="../images/profile-4.png" alt="profile" />
             </RouterLink>
+             {/* Ajoutez le composant Logout ici */}
+             <Logout />
         </div>
     );
 };
