@@ -8,6 +8,11 @@ export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
     const [id, setId] = useState(0);
+    const [articles, setArticles] = useState([]);
+
+  const addArticle = (newArticle) => {
+    setArticles(prevArticles => [...prevArticles, newArticle]);
+  };
     const prevIdRef = useRef(id);
     const navigate = useNavigate();
 
@@ -53,6 +58,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('token', token); // Store token in localStorage
             const decoded = jwtDecode(token);
             setUser(decoded);
+            console.log(user);
             setIsAuthenticated(true);
         } catch (error) {
             console.error('Login failed:', error);
@@ -67,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, login, logout ,id,setId}}>
+        <AuthContext.Provider value={{ isAuthenticated, user, login, logout ,id,setId,articles,setArticles,addArticle}}>
             {children}
         </AuthContext.Provider>
     );

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/postCreate.css";
 import useSave from "../backend/Services/useSave.js";
 
-const StoryCreate = () => {
+const StoryCreate = ({stories,setStories}) => {
     const [contenu, setContenu] = useState("");
     const [contenuMedia, setContenuMedia] = useState(null);
     const [open, setOpen] = useState(false);
@@ -24,6 +24,7 @@ const StoryCreate = () => {
         try {
             // Add submission logic here
            const post = await saveData("posts/create", formData);
+           setStories([post,...stories])
             console.log(post);
             setContenu("");
             setContenuMedia(null);
@@ -38,11 +39,11 @@ const StoryCreate = () => {
             {/* Conditionally render either the "Add Story" card or the form */}
             { !open ? (
                 <div
-                    onClick={() => setOpen(true)}
+
                     className="card w200 h300 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden cursor-pointer mb-3 mt-3"
                 >
                     <div className="card-body position-relative text-center d-flex flex-column align-items-center justify-content-center">
-                        <span className="btn-round-lg bg-white shadow-sm">
+                        <span className="btn-round-lg bg-white shadow-sm" onClick={() => setOpen(true)}>
                             <i className="feather-plus font-lg text-primary"></i>
                         </span>
                         <h4 className="fw-700 mt-2 mb-0 text-dark">Add Story</h4>

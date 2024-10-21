@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext.jsx";
 import useFetch from "../backend/Services/useFetch.js";
 import useSave from "../backend/Services/useSave.js";
 
-const ChatMessage = React.memo(({ isOutgoing, avatar, name, time, message, image }) => (
+const ChatMessage = ({ isOutgoing, avatar, name, time, message, image }) => (
     <div className={`message-item ${isOutgoing ? 'outgoing-message' : ''}`}>
         <div className="message-user">
             <figure className="avatar">
@@ -19,17 +19,18 @@ const ChatMessage = React.memo(({ isOutgoing, avatar, name, time, message, image
         {message && <div className={`message-wrap ${isOutgoing ? 'bg-blue-gradiant' : 'bg-greyblue'}`}>{message}</div>}
         {image && <figure><img src={image} className="w-25 img-fluid rounded-3 " alt="Message attachment" /></figure>}
     </div>
-));
+);
 
-const ChatForm = React.memo(({ onSendMessage }) => {
+const ChatForm = ({ onSendMessage }) => {
     const [message, setMessage] = useState('');
     const { saveData, isSaving, saveError } = useSave();
     const { id } = useAuth();
+
     const handleMessage = useCallback(async (e) => {
         e.preventDefault();
         if (message.trim()) {
             try {
-                const response = await saveData('users/messages', { content: message,receiver:id });
+                const response = await saveData('users/messages', { content: message, receiver: id });
                 onSendMessage(response.data);
                 setMessage('');
             } catch (error) {
@@ -61,12 +62,12 @@ const ChatForm = React.memo(({ onSendMessage }) => {
             {saveError && <p className="error-message">Error: {saveError}</p>}
         </div>
     );
-});
+};
 
 const Chat = () => {
     const { id, user } = useAuth();
-    const { data, isLoading } = useFetch(`users/discussion/${id}`);
     const [messages, setMessages] = useState([]);
+    const { data, isLoading } = useFetch(`users/discussion/${id}`);
 
     useEffect(() => {
         if (data) {
@@ -75,7 +76,7 @@ const Chat = () => {
     }, [data]);
 
     const handleSendMessage = useCallback((newMessage) => {
-        setMessages(prevMessages => [...prevMessages,newMessage]);
+        setMessages(prevMessages => [...prevMessages, newMessage]);
     }, []);
 
     const memoizedMessages = useMemo(() => messages.map((msg, index) => (

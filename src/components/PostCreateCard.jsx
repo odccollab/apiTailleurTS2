@@ -3,7 +3,7 @@ import useMediaUpload from '../utilis/useMediaUpload';
 import MediaPreview from './MediaPreview';
 import useSave from "../backend/Services/useSave.js";
 
-const PostCreateCard = () => {
+const PostCreateCard = ({posts,setPosts}) => {
     const [content, setContent] = useState('');
     const { mediaFiles, addMediaFiles, removeMediaFile ,setMediaFiles} = useMediaUpload();
     const { saveData, isSaving, saveError } = useSave();
@@ -27,8 +27,8 @@ const PostCreateCard = () => {
         console.log('Creating post with content:', content, 'and media:', mediaFiles);
         try {
             // Wait for the post to be saved
-            await saveData("posts/create", formData);
-            // Reset the content and media files only after the post is created
+          const post= await saveData("posts/create", formData);
+setPosts([post,...posts])            // Reset the content and media files only after the post is created
             setContent("");
             setMediaFiles([]); // Use the correct function to clear media files
             alert("post created successfully.");

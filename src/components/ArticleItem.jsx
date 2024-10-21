@@ -1,4 +1,6 @@
 import React from 'react';
+import FormComponent from "./FormComponent.jsx"; 
+
 
 const ArticleItem = ({ title, content, authorName, publishedDate }) => {
     return (
@@ -11,6 +13,7 @@ const ArticleItem = ({ title, content, authorName, publishedDate }) => {
             </div>
         </div>
     );
+    
 };
 
 export default ArticleItem;

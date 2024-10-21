@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import useFetch from "../backend/Services/useFetch";
+import Follow from './Follow';
+import { FollowProvider } from '../context/FollowContext';
 
 // Composant pour le bouton réutilisable
 const Button = ({ children, onClick, className }) => (
@@ -92,20 +94,28 @@ const Followings = () => {
                         {loading && <Loader />}
                         {error && <p className="text-red-500">Erreur : {error}</p>}
                         {data && data.data && data.data.length > 0 ? (
-                            <ul style={{ listStyle: 'none', padding: 0 }}>
-                                {data.data.map((following) => (
-                                    <li key={following.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                                            <img
-                                                src={following.image }
-                                                alt={`${following.prenom} ${following.nom}`}
-                                                style={{ width: '3rem', height: '3rem', borderRadius: '50%', marginRight: '1rem' }}
-                                            />
-                                            <span style={{ fontWeight: 'bold' }}>{following.prenom} {following.nom}</span>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
+                         <ul style={{ listStyle: 'none', padding: 0 }}>
+                         {data.data.map((following) => (
+                             <li key={following._id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                                 <div style={{ display: 'flex', alignItems: 'center' }}>
+                                     <img
+                                         src={following.image}
+                                         alt={`${following.prenom} ${following.nom}`}
+                                         style={{ width: '3rem', height: '3rem', borderRadius: '50%', marginRight: '1rem' }}
+                                     />
+                                     <span className='text-align m-2 py-2' style={{ fontWeight: 'bold' }}>
+                                         {following.prenom} {following.nom}
+                                     </span>
+                                 </div>
+                                 <div>
+                                     <FollowProvider>
+                                         <Follow followedId={following._id} />
+                                     </FollowProvider>
+                                 </div>
+                             </li>
+                         ))}
+                     </ul>
+                     
                         ) : (
                             !loading && <p>Vous ne suivez aucun utilisateur pour le moment.</p>
                         )}

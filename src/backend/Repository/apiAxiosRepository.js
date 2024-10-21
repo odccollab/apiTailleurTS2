@@ -21,7 +21,6 @@ const apiRepository = {
 
     // Save data to the server with method support (POST, PUT, PATCH, DELETE)
     saveData: async (endpoint, data, method = 'POST') => {
-        // Determine Content-Type based on data type
         const headers = {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Accept': '*/*',
@@ -33,7 +32,8 @@ const apiRepository = {
                 method: method,
                 url: baseUrl + endpoint,
                 headers: headers,
-                data: method !== 'DELETE' ? data : null,
+                // Set data to null for DELETE requests
+                data: method !== 'DELETE' ? data : undefined,
             };
 
             const response = await axios(config);
@@ -62,6 +62,7 @@ const apiRepository = {
             throw new Error(errorMessage);
         }
     },
+
 };
 
 export default apiRepository;

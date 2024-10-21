@@ -4,7 +4,7 @@ import CustomAlert from '../Alert/CustomAlert'; // Import du CustomAlert
 import '../../css/rechargeCredit.css'; // Ajouter du style personnalisé
 import useSave from '../../backend/Services/useSave';
 
-const RechargeCreditModal = ({ show, handleClose, userId }) => {
+const RechargeCreditModal = ({ show, handleClose, userId, onCreditUpdate }) => { // Ajout de onCreditUpdate dans les props
     const [amount, setAmount] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { saveData, isSaving, saveError } = useSave();
@@ -29,11 +29,12 @@ const RechargeCreditModal = ({ show, handleClose, userId }) => {
         setIsSubmitting(true);
 
         try {
-            // Appel à une API pour ajouter du crédit (remplacer par votre logique backend)
-            const response = await saveData("users/achatCredit", {amount:amount}); // Remplacer avec un vrai appel API
-            console.log(response);
-
+            // Appel à une API pour ajouter du crédit
+            const response = await saveData("users/achatCredit", { amount: amount });
+            
             if (response.success) {
+                // Met à jour le crédit via la fonction passée par les props
+                onCreditUpdate(response.credits); // Appel de la fonction onCreditUpdate
                 // Configuration de l'alerte pour un succès
                 setAlertConfig({
                     title: 'Crédit rechargé',
