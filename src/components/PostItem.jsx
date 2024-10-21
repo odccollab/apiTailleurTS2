@@ -85,10 +85,10 @@ const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments,
             <div className="post-footer d-flex align-items-center justify-content-between p-3">
 
                 {<Likes id={id} likeStatus={likeStatus} />}
-                <button className="comment-toggle-btn filled" onClick={handleCommentToggle}>
-                    <MessageCircle />
+                <button className="comment-toggle-btn " onClick={handleCommentToggle}>
+                    <MessageCircle  color="#262626" />
                 </button>
-                <Vue postId={id} initialViews={views} />
+                <Vue postId={id}  initialViews= {views} />
                 <Favoris id={id} favorite={favorite} />
             </div>
 

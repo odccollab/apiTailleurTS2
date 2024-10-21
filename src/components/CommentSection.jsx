@@ -118,7 +118,7 @@ const PostCommentaire = ({ postId }) => {
     const toggleComments = () => setShowAllComments(!showAllComments);
 
     return (
-        <div className="comments-section">loading
+        <div className="comments-section">
             <div className="comments-list">
                 {loading && <p className="loading-message">Loading comments...</p>}
                 {/* {error && <p className="error-message">Error: {error.message}</p>} */}
