@@ -8,7 +8,7 @@ import ShareModal from './ShareModal.jsx';
 import useSave from '../../backend/Services/useSave';
 import Swal from 'sweetalert2';
 
-const OptionsModal = ({ show, handleClose, postId, onPostDeleted}) => {
+const OptionsModal = ({delet, post ,show, handleClose, postId, onPostDeleted}) => {
     const [showReportModal, setShowReportModal] = useState(false); // Contrôle du modal de signalement
     const [showShareModal, setShowShareModal] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -30,7 +30,8 @@ const OptionsModal = ({ show, handleClose, postId, onPostDeleted}) => {
     const handleDeletePost = async () => {
         try {
           await saveData(`posts/${postId}`, {}, 'DELETE');
-          handleClose();
+          handleClose()
+            delet(post)
           if (onPostDeleted) {
             onPostDeleted(postId);
           }
