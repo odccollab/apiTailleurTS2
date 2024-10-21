@@ -92,11 +92,12 @@ const MainContent = () => {
                 {/* Main Content */}
                 <div className="row feed-body">
                     <div className="col-xl-8 col-xxl-9 col-lg-8 z-index--6" style={{ maxWidth: '1000px' }}>
-                        <div className="card w-200 shadow-none bg-transparent border-0 p-4 mb-0">
-                            <div className="     d-flex col-lg-8 m-0 m-auto">
+                        <div className="card  shadow-none bg-transparent border-0 p-4 mb-0">
+                            {/* Ajout du scroll horizontal ici */}
+                            <div className="d-flex col-lg-8 m-0 m-auto" style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
                                 <StoryCreate stories={stories} setStories={setStory} />
                                 {Object.values(groupedStories).map((userGroup) => (
-                                    <div key={userGroup.user.id} onClick={() => handleStoryClick(userGroup.user.id)}>
+                                    <div key={userGroup.user.id} style={{ display: 'inline-block' }} onClick={() => handleStoryClick(userGroup.user.id)}>
                                         <StoryItem
                                             userImage={userGroup.user.image}
                                             userName={`${userGroup.user.nom} ${userGroup.user.prenom}`}
@@ -107,7 +108,9 @@ const MainContent = () => {
                             </div>
                         </div>
 
-                        <PostCreateCard posts={posts} setPosts={setPost2} />
+
+
+                <PostCreateCard posts={posts} setPosts={setPost2} />
                         {posts.map(post => (
                             <PostItem
                                 key={post.id}
