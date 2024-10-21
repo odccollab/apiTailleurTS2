@@ -65,13 +65,28 @@
     font-size: 1rem;
     margin-top: 10px;
 }
-/* .cancel-error {
-    color: red;
-    text-align: center;
-    margin-top: 10px;
+/* Style par défaut pour le bouton valider */
+.validate-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.cancel-button:disabled {
-    background-color: #ffcccc;
-    cursor: not-allowed;
-} */
+.validate-button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Couleur spécifique pour le bouton 'non_confirme' */
+.non-confirme-button {
+    background-color: rgb(60, 230, 60); /* Couleur personnalisée pour le bouton 'non confirmé' */
+    color: white;
+}
+
+.non-confirme-button:hover {
+    background-color: rgb(60, 230, 60);
+}
+

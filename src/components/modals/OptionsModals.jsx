@@ -1,6 +1,5 @@
 import  { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import { Modal, Button } from 'react-bootstrap';
 import ReportModal from './ReportModal'; // Import du composant de signalement
 // Import du composant ShareModal reste ici, pas de modification

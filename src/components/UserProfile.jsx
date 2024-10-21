@@ -98,17 +98,22 @@ const UserProfile = () => {
                         </div>
                     </div>
 
-                    <CreditCard credit={user?.credit} />
+                    {/* Masquer le CreditCard et le bouton Buy Credit si on est sur le profil d'un autre utilisateur */}
+                    {!idUser && (
+                        <>
+                            <CreditCard credit={user?.credit} />
 
-                    <div className="profile-actions">
-                        <button className="follow-button">
-                            <FaUserPlus className="icon" /> Follow
-                        </button>
-                        <button className="contact-button">Contact</button>
-                        <button className="credit-button" onClick={() => setShowModal(true)}>
-                            <FaCreditCard className="icon" /> Buy Credit
-                        </button>
-                    </div>
+                            <div className="profile-actions">
+                                <button className="follow-button">
+                                    <FaUserPlus className="icon" /> Follow
+                                </button>
+                                <button className="contact-button">Contact</button>
+                                <button className="credit-button" onClick={() => setShowModal(true)}>
+                                    <FaCreditCard className="icon" /> Buy Credit
+                                </button>
+                            </div>
+                        </>
+                    )}
                 </>
             )}
 
@@ -116,15 +121,16 @@ const UserProfile = () => {
                 <Tab label="Posts" />
                 <Tab label="Articles" />
 
+                {/* N'afficher les onglets "Commandes Effectuées", "Favorites", "Commandes" que si on est sur son propre profil */}
                 {!idUser && <Tab label="Commandes Effectuées" />}
                 {!idUser && <Tab label="Favorites" />}
-                {!idUser && user_connect?.type==='vendeur' && <Tab label="Commandes" />}
+                {!idUser && user_connect?.type === 'vendeur' && <Tab label="Commandes" />}
             </Tabs>
 
             {activeTab === 0 && (
                 <div className="posts-container">
                     {data?.posts?.length > 0 ? (
-                        data.posts.map((post, index) => (
+                        data.posts.map((post) => (
                             <PostItem
                                 key={post.id}
                                 userImage={`${post.user?.image || '/images/default-user.jpg'}`}
@@ -152,7 +158,7 @@ const UserProfile = () => {
             {activeTab === 2 && <Commandes />}
             {activeTab === 3 && <Favorites />}
 
-            {/* Condition pour afficher CommandesVendeurs si l'utilisateur est vendeur */}
+            {/* Afficher CommandesVendeurs si l'utilisateur est un vendeur */}
             {user_connect?.type === 'vendeur' && activeTab === 4 && <CommandesVendeurs />}
 
             <RechargeCreditModal

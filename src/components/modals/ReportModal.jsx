@@ -4,9 +4,9 @@ import useSave from '../../backend/Services/useSave';
 import CustomAlert from '../Alert/CustomAlert'; // Import du composant CustomAlert
 
 const ReportModal = ({ show, handleClose, postId }) => {
-    const [reportReason, setReportReason] = useState(''); // Stocker la raison du signalement
-    const [alertVisible, setAlertVisible] = useState(false); // État pour afficher ou masquer l'alerte
-    const [alertConfig, setAlertConfig] = useState({}); // Configuration de l'alerte
+    const [reportReason, setReportReason] = useState(''); 
+    const [alertVisible, setAlertVisible] = useState(false); 
+    const [alertConfig, setAlertConfig] = useState({}); 
 
     const handleReportChange = (e) => setReportReason(e.target.value);
 

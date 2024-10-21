@@ -49,7 +49,7 @@ const Notifications = () => {
                 {notifications.length > 0 ? (
                     notifications.slice(0, visibleNotifications).map((notif) => {
                         const cleanedText = notif.content.replace(extractUrlImg(notif.content), '').trim();
-
+                        console.log(cleanedText);
                         return (
                             <div
                                 key={notif.id}
@@ -82,7 +82,7 @@ const Notifications = () => {
                     })
                 ) : (
                     <div className="no-notifications-message">
-                        <p>Aucune notification !!!</p>
+                        <p className='not-notification'>Aucune notification !!!</p>
                     </div>
                 )}
             </div>

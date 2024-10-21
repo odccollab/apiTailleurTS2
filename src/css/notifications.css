@@ -25,7 +25,7 @@ body {
 .notifications-container {
     max-width: 1200px;
     width: 100%;
-    margin: 130px auto; /* Augmente le margin-top à 100px */
+    margin: 130px auto;
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -33,7 +33,6 @@ body {
     padding: 30px;
     border: 5px solid var(--border-color);
 }
-
 
 .notifications-header {
     padding: 0px 24px;
@@ -183,4 +182,77 @@ body {
 
 .load-more-btn:hover {
     background-color: var(--secondary-color);
+}
+
+.not-notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* RESPONSIVITÉ */
+
+/* Pour les petits écrans comme les téléphones */
+@media (max-width: 768px) {
+    .notifications-container {
+        margin: 50px 10px;
+        padding: 20px;
+    }
+
+    .header-title {
+        font-size: 20px;
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .notification-text {
+        font-size: 14px;
+    }
+
+    .mark-read-btn {
+        padding: 6px 12px;
+    }
+    
+    .load-more-btn {
+        padding: 8px 16px;
+    }
+}
+
+/* Pour les très petits écrans comme les téléphones en mode portrait */
+@media (max-width: 480px) {
+    .notifications-container {
+        margin: 30px 5px;
+        padding: 15px;
+    }
+
+    .header-title {
+        font-size: 18px;
+    }
+
+    .avatar {
+        width: 35px;
+        height: 35px;
+        margin-right: 8px;
+    }
+
+    .notification-text {
+        font-size: 13px;
+    }
+
+    .mark-read-btn {
+        padding: 5px 10px;
+    }
+
+    .load-more-btn {
+        padding: 6px 12px;
+    }
 }
