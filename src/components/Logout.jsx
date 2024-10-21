@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { ExitToApp, PowerSettingsNew, DirectionsRun, SentimentVeryDissatisfied } from '@mui/icons-material';
+import { PowerSettingsNew } from '@mui/icons-material';
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -15,16 +14,19 @@ const Logout = () => {
   return (
     <button 
       onClick={handleLogout} 
-      className="p-2 text-center ms-3 menu-icon"
+      style={{
+        background: 'none',
+        border: 'none',
+        padding: 0,
+        cursor: 'pointer',
+        color: '#2D7EFD',
+      }}
       title="Déconnexion"
     >
-      {/* <ExitToApp className="font-xl text-current" />
-      Alternatives : */}
       <PowerSettingsNew className="font-xl text-current" />
-      {/* <DirectionsRun className="font-xl text-current" />
-      <SentimentVeryDissatisfied className="font-xl text-current" /> */}
     </button>
   );
 };
 
 export default Logout;
+ 

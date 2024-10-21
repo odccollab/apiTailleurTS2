@@ -73,9 +73,9 @@ const NavHeader = () => {
             <RouterLink to="/discussion" className="p-2 text-center ms-3 menu-icon chat-active-btn">
                 <i className="feather-message-square font-xl text-current"></i>
             </RouterLink>
-            <RouterLink to="/default-settings" className="p-0 ms-3 menu-icon">
+            {/* <RouterLink to="/default-settings" className="p-0 ms-3 menu-icon">
                 <img src="../images/profile-4.png" alt="profile" />
-            </RouterLink>
+            </RouterLink> */}
              {/* Ajoutez le composant Logout ici */}
              <Logout />
         </div>

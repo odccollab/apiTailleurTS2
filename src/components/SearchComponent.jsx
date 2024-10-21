@@ -128,6 +128,8 @@ const SearchComponent = () => {
                                         id={post.id}
                                         views={post.viewers || "0"}
                                         idUser={post.idUser}
+                                        favorite={post.favorite}
+                                        likeStatus={post.likeStatus}
                                     />
                                 </div>
                             ))}
