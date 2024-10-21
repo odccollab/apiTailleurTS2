@@ -14,12 +14,14 @@ import IconButton from "@mui/material/IconButton";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import Likes from "./Likes.jsx";
-const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments, media, id ,views,idUser,favorite}) => {
+import "../css/comment.css";
+
+const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments, media, id, views, idUser, favorite }) => {
 
     const [showOptionsModal, setShowOptionsModal] = useState(false);
     const [showComments, setShowComments] = useState(false);
     const [showLikes, setShowLikes] = useState(false);
-    
+
     const navigate = useNavigate(); // Hook pour la navigation
 
     const handleCommentToggle = () => {
@@ -41,15 +43,15 @@ const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments,
     return (
         <div className="post-item-container shadow-sm rounded-lg border bg-white mb-4" style={{ maxWidth: '800px' }}>
             <div className="post-header d-flex align-items-center p-3">
-                <img 
-                    src={userImage} 
-                    alt="User" 
+                <img
+                    src={userImage}
+                    alt="User"
                     className="rounded-circle user-image"
                     onClick={handleUserProfileClick} // Redirection lors du clic sur la photo
                     style={{ cursor: 'pointer' }} // Curseur pour indiquer la cliquabilité
                 />
                 <div className="ms-3">
-                    <h6 
+                    <h6
                         className="mb-0 text-dark font-weight-bold"
                         onClick={handleUserProfileClick} // Redirection lors du clic sur le nom
                         style={{ cursor: 'pointer' }} // Curseur pour indiquer la cliquabilité
@@ -82,12 +84,14 @@ const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments,
 
             <div className="post-footer d-flex align-items-center justify-content-between p-3">
 
-                { <Likes id={id} likeStatus={likeStatus} />}
-                <button onClick={handleCommentToggle}><MessageCircle/> {comments} Comments</button>
-                 <Vue postId={id} initialViews={views}/>
-                <Favoris id={id} favorite={favorite}/>
+                {<Likes id={id} likeStatus={likeStatus} />}
+                <button className="comment-toggle-btn filled" onClick={handleCommentToggle}>
+                    <MessageCircle />
+                </button>
+                <Vue postId={id} initialViews={views} />
+                <Favoris id={id} favorite={favorite} />
             </div>
-           
+
 
             {showComments && <CommentSection postId={id} />}
             <OptionsModal show={showOptionsModal} handleClose={handleOptionsModal} postId={id} />
