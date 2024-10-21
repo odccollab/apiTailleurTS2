@@ -21,6 +21,7 @@ const MainContent = () => {
     const [selectedUserStories, setSelectedUserStories] = useState(null); // Track selected user's stories
     const [order, setOrder] = useState(null); // State to store the response from delete
     const [isDeleting, setIsDeleting] = useState(false); // State to manage loading state for delete
+    const [groupedStories, setGroupedStories] = useState({});
 
     // Data handlers for infinite scroll and fetch
     const dataHandler = (newData) => ({
@@ -36,18 +37,26 @@ const MainContent = () => {
         setStory(data.stories);
     }, [data]);
 
+    useEffect(() => {
+        const groupStories = () => {
+            const grouped = stories.reduce((acc, story) => {
+                const userId = story.user.id;
+                if (!acc[userId]) {
+                    acc[userId] = {
+                        user: story.user,
+                        stories: []
+                    };
+                }
+                acc[userId].stories.push(story);
+                return acc;
+            }, {});
+            return grouped;
+        };
+
+        const groupedResult = groupStories();
+        setGroupedStories(groupedResult);
+    }, [stories]);
     // Group stories by user
-    const groupedStories = stories.reduce((acc, story) => {
-        const userId = story.user.id;
-        if (!acc[userId]) {
-            acc[userId] = {
-                user: story.user,
-                stories: []
-            };
-        }
-        acc[userId].stories.push(story);
-        return acc;
-    }, {});
 
     // Open StoryModal when a user clicks on their stories
     const handleStoryClick = (userId) => {
@@ -92,11 +101,12 @@ const MainContent = () => {
                 {/* Main Content */}
                 <div className="row feed-body">
                     <div className="col-xl-8 col-xxl-9 col-lg-8 z-index--6" style={{ maxWidth: '1000px' }}>
-                        <div className="card w-200 shadow-none bg-transparent border-0 p-4 mb-0">
-                            <div className="     d-flex col-lg-8 m-0 m-auto">
+                        <div className="card  shadow-none bg-transparent border-0 p-4 mb-0">
+                            {/* Ajout du scroll horizontal ici */}
+                            <div className="d-flex col-lg-8 m-0 m-auto" style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
                                 <StoryCreate stories={stories} setStories={setStory} />
                                 {Object.values(groupedStories).map((userGroup) => (
-                                    <div key={userGroup.user.id} onClick={() => handleStoryClick(userGroup.user.id)}>
+                                    <div key={userGroup.user.id} style={{ display: 'inline-block' }} onClick={() => handleStoryClick(userGroup.user.id)}>
                                         <StoryItem
                                             userImage={userGroup.user.image}
                                             userName={`${userGroup.user.nom} ${userGroup.user.prenom}`}
@@ -107,7 +117,9 @@ const MainContent = () => {
                             </div>
                         </div>
 
-                        <PostCreateCard posts={posts} setPosts={setPost2} />
+
+
+                <PostCreateCard posts={posts} setPosts={setPost2} />
                         {posts.map(post => (
                             <PostItem
                                 key={post.id}
@@ -123,6 +135,7 @@ const MainContent = () => {
                                 idUser={post.idUser}
                                 favorite={post.favorite}
                                 likeStatus={post.likeStatus}
+                                isfollowing={post.following}
                             />
                         ))}
 

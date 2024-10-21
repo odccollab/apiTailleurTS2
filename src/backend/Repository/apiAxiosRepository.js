@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = "https://apitailleur-nz0e.onrender.com/";
+const baseUrl = "http://localhost:3000/";
 
 const apiRepository = {
     // Fetch data from the server
