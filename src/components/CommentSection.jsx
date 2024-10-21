@@ -23,7 +23,7 @@ const PostCommentaire = ({ postId }) => {
         if (newComment.trim()) {
             try {
                 const newCommentData = await saveData(`posts/${postId}/comment`, { postId, text: newComment });
-                setComments([newCommentData,...comments]);
+                setComments([newCommentData, ...comments]);
                 setNewComment('');
             } catch (err) {
                 console.error('Error saving comment:', err);
@@ -86,7 +86,7 @@ const PostCommentaire = ({ postId }) => {
         <div className="comments-section">
             <div className="comments-list">
                 {loading && <p className="loading-message">Loading comments...</p>}
-                {error && <p className="error-message">Error: {error.message}</p>}
+                {/* {error && <p className="error-message">Error: {error.message}</p>} */}
                 {visibleComments.map(comment => (
                     <div key={comment.id} className="comment-item">
                         {/* <img src={comment.user.image} alt="Commenter" className="commenter-avatar */}
@@ -103,7 +103,7 @@ const PostCommentaire = ({ postId }) => {
                                 </div>
                             </div>
                             {editingCommentId === comment.id ? (
-                                <>
+                                <div className="comment-edit-container">
                                     <textarea
                                         value={editedCommentText}
                                         onChange={(e) => setEditedCommentText(e.target.value)}
@@ -112,7 +112,7 @@ const PostCommentaire = ({ postId }) => {
                                         <button onClick={() => handleSaveEdit(comment.id)}>Save</button>
                                         <button onClick={handleCancelEdit}>Cancel</button>
                                     </div>
-                                </>
+                                </div>
                             ) : (
                                 <p className="comment-text">{comment.content}</p>
                             )}
