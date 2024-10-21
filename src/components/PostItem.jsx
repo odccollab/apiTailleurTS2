@@ -1,43 +1,52 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Assurez-vous que React Router est installé et configuré
-import Favoris from "./Favoris.jsx";
-import OptionsModal from './modals/OptionsModals.jsx';
-import MediaCarousel from './MediaCarousel.jsx';
-import "../css/postItem.css";
-import CommentSection from "./CommentSection.jsx";
+import { useNavigate } from 'react-router-dom';
+import { SuivreProvider } from "../context/SuivreContext";
 import { ThumbsUp, MessageCircle } from 'lucide-react';
-import ConfirmationModal from "./ConfirmationModal.jsx";
-import Vue from "./Vue.jsx";
-import Follow from "./Follow.jsx";
-import { FollowProvider } from "../context/FollowContext.jsx";
-import IconButton from "@mui/material/IconButton";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import Likes from "./Likes.jsx";
+import FollowButton from './FollowButton';
+import MediaCarousel from './MediaCarousel';
+import CommentSection from "./CommentSection";
+import OptionsModal from './modals/OptionsModals';
+import Favoris from "./Favoris";
+import Vue from "./Vue";
+import Likes from "./Likes";
+import "../css/postItem.css";
 import "../css/comment.css";
 
-const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments, media, id, views, idUser, favorite }) => {
-
+const PostItem = ({ 
+  userImage, 
+  userName, 
+  timeAgo, 
+  content, 
+  likeStatus, 
+  comments, 
+  media, 
+  id, 
+  views, 
+  idUser, 
+  favorite 
+}) => {
     const [showOptionsModal, setShowOptionsModal] = useState(false);
     const [showComments, setShowComments] = useState(false);
     const [showLikes, setShowLikes] = useState(false);
 
-    const navigate = useNavigate(); // Hook pour la navigation
+    const navigate = useNavigate();
 
     const handleCommentToggle = () => {
         setShowComments(!showComments);
     };
+
     const handleLikeClick = () => {
         setShowLikes(true);
     };
+
     const handleDislikeClick = () => {
         setShowLikes(true);
     };
+
     const handleOptionsModal = () => setShowOptionsModal(!showOptionsModal);
 
-    // Fonction pour rediriger vers le profil de l'utilisateur
     const handleUserProfileClick = () => {
-        navigate(`/profile/${idUser}`); // Redirige vers le profil avec l'ID de l'utilisateur
+        navigate(`/profile/${idUser}`);
     };
 
     return (
@@ -47,23 +56,23 @@ const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments,
                     src={userImage}
                     alt="User"
                     className="rounded-circle user-image"
-                    onClick={handleUserProfileClick} // Redirection lors du clic sur la photo
-                    style={{ cursor: 'pointer' }} // Curseur pour indiquer la cliquabilité
+                    onClick={handleUserProfileClick}
+                    style={{ cursor: 'pointer' }}
                 />
                 <div className="ms-3">
                     <h6
                         className="mb-0 text-dark font-weight-bold"
-                        onClick={handleUserProfileClick} // Redirection lors du clic sur le nom
-                        style={{ cursor: 'pointer' }} // Curseur pour indiquer la cliquabilité
+                        onClick={handleUserProfileClick}
+                        style={{ cursor: 'pointer' }}
                     >
                         {userName}
                     </h6>
                     <span className="text-muted font-small">{timeAgo}</span>
                 </div>
                 <div className="ms-auto flex">
-                    <FollowProvider>
-                        <Follow followedId={idUser} />
-                    </FollowProvider>
+                    <SuivreProvider>
+                        <FollowButton followedId={idUser} />
+                    </SuivreProvider>
                 </div>
                 <button className="btn-icon ms-auto" onClick={handleOptionsModal}>
                     <i className="ti-more-alt text-dark"></i>
@@ -83,15 +92,13 @@ const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments,
             )}
 
             <div className="post-footer d-flex align-items-center justify-content-between p-3">
-
-                {<Likes id={id} likeStatus={likeStatus} />}
+                <Likes id={id} likeStatus={likeStatus} />
                 <button className="comment-toggle-btn filled" onClick={handleCommentToggle}>
                     <MessageCircle />
                 </button>
                 <Vue postId={id} initialViews={views} />
                 <Favoris id={id} favorite={favorite} />
             </div>
-
 
             {showComments && <CommentSection postId={id} />}
             <OptionsModal show={showOptionsModal} handleClose={handleOptionsModal} postId={id} />

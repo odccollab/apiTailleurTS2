@@ -4,8 +4,6 @@ import Follow from './Follow';
 import { FollowProvider } from '../context/FollowContext';
 
 
-
-
 const Button = ({ children, onClick, className }) => (
     <button
         onClick={onClick}
@@ -90,7 +88,7 @@ const Followers = () => {
                                 <li key={follower._id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                         <img
-                                            src={follower.image || "../images/photo_2024-10-02_09-38-30.jpg"}
+                                            src={follower.image}
                                             alt={`${follower.prenom} ${follower.nom}`}
                                             style={{ width: '3rem', height: '3rem', borderRadius: '50%', marginRight: '1rem' }}
                                         />

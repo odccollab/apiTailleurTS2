@@ -3,7 +3,7 @@ import useFetch from "../backend/Services/useFetch";
 import useSave from "../backend/Services/useSave";
 import { useAuth } from './AuthContext';
 
-// Crée le contexte
+// Création du contexte
 const SuivreContext = createContext();
 
 // Hook personnalisé pour utiliser le contexte
@@ -12,62 +12,103 @@ export const useSuivre = () => useContext(SuivreContext);
 export const SuivreProvider = ({ children }) => {
   const { user } = useAuth();
   const { saveData, isSaving, saveError } = useSave();
-  const [isFollowing, setIsFollowing] = useState(false);
+  
+  // Stocke tous les statuts de suivi dans un objet
+  const [followStatus, setFollowStatus] = useState({});
+  // Liste de tous les followers
   const [followers, setFollowers] = useState([]);
+  // Liste de tous les utilisateurs que l'utilisateur courant suit
+  const [following, setFollowing] = useState([]);
 
   // Gère la clé de stockage dans le localStorage
   const getStorageKey = (userId, followedId) => `follow_${userId}_${followedId}`;
 
-  // Vérifie le statut de suivi et récupère les followers depuis l'API
-  const checkFollowStatus = async (followedId) => {
-    if (!user?.id || !followedId) return;
-
-    const storageKey = getStorageKey(user.id, followedId);
-    const storedStatus = localStorage.getItem(storageKey);
-
-    if (storedStatus !== null) {
-      setIsFollowing(JSON.parse(storedStatus));
+  // Initialise les données de suivi au chargement
+  useEffect(() => {
+    if (user?.id) {
+      fetchFollowData();
     }
+  }, [user?.id]);
 
+  // Récupère toutes les données de suivi
+  const fetchFollowData = async () => {
     try {
-      const { data, error } = await useFetch("users/followers");
-      if (!error && data) {
-        const actualStatus = data.some(follower => follower.id === followedId);
-        setIsFollowing(actualStatus);
-        setFollowers(data);
-        localStorage.setItem(storageKey, JSON.stringify(actualStatus));
+      // Récupère les followers
+      const followersResponse = await useFetch("users/followers");
+      if (!followersResponse.error && followersResponse.data) {
+        setFollowers(followersResponse.data);
+      }
+
+      // Récupère les following
+      const followingResponse = await useFetch("users/following");
+      if (!followingResponse.error && followingResponse.data) {
+        setFollowing(followingResponse.data);
+        
+        // Met à jour le statut de suivi pour chaque utilisateur
+        const newFollowStatus = {};
+        followingResponse.data.forEach(user => {
+          newFollowStatus[user.id] = true;
+        });
+        setFollowStatus(newFollowStatus);
       }
     } catch (error) {
-      console.error("Erreur lors de la vérification du statut:", error);
+      console.error("Erreur lors de la récupération des données de suivi:", error);
     }
   };
 
-  // Gère l'action de suivre/désuivre un utilisateur
+  // Vérifie si l'utilisateur suit un autre utilisateur
+  const isFollowing = (followedId) => {
+    return !!followStatus[followedId];
+  };
+
+  // Gère l'action de suivre/ne plus suivre
   const handleFollow = async (followedId) => {
     if (isSaving || !user?.id) return;
 
     try {
-      const post = await saveData("users/follow", { followedId });
+      const response = await saveData("users/follow", { followedId });
+      
+      if (!response.error) {
+        // Met à jour le statut localement
+        setFollowStatus(prev => ({
+          ...prev,
+          [followedId]: !prev[followedId]
+        }));
 
-      if (!post.error) {
-        const newStatus = !isFollowing;
-        setIsFollowing(newStatus);
+        // Met à jour la liste des following
+        if (!followStatus[followedId]) {
+          setFollowing(prev => [...prev, { id: followedId }]);
+        } else {
+          setFollowing(prev => prev.filter(f => f.id !== followedId));
+        }
+
+        // Stocke dans le localStorage
         const storageKey = getStorageKey(user.id, followedId);
-        localStorage.setItem(storageKey, JSON.stringify(newStatus));
+        localStorage.setItem(storageKey, JSON.stringify(!followStatus[followedId]));
       }
     } catch (error) {
       console.error("Erreur lors du suivi:", error);
     }
   };
 
+  // Obtient les statistiques de suivi
+  const getFollowStats = (userId) => {
+    return {
+      followersCount: followers.filter(f => f.id === userId).length,
+      followingCount: following.length
+    };
+  };
+
   return (
     <SuivreContext.Provider value={{
-      isFollowing,
       followers,
-      checkFollowStatus,
+      following,
+      isFollowing,
       handleFollow,
+      getFollowStats,
       isSaving,
-      saveError
+      saveError,
+      refreshFollowData: fetchFollowData
     }}>
       {children}
     </SuivreContext.Provider>

@@ -25,7 +25,7 @@ const Follow = ({ followedId }) => {
       }
 
       try {
-        const { data, error } = await useFetch("users/followers");
+        const { data, error } = useFetch("users/followers");
         if (!error && data) {
           const actualStatus = data.some(follower => follower.id === followedId);
           setIsFollowing(actualStatus);
@@ -46,11 +46,13 @@ const Follow = ({ followedId }) => {
       const post = await saveData("users/follow", { followedId });
       
       if (!post.error) {
+        // Inverse le statut et appelle la fonction toggleFollow
         const newStatus = !isFollowing;
         setIsFollowing(newStatus);
         toggleFollow();
         
         const storageKey = getStorageKey(user.id, followedId);
+         // Sauvegarde le nouveau statut dans le localStorage
         localStorage.setItem(storageKey, JSON.stringify(newStatus));
       }
     } catch (error) {
@@ -64,24 +66,24 @@ const Follow = ({ followedId }) => {
 
   return (
     <>
-      <button
-        onClick={handleFollow}
-        disabled={isSaving}
-        style={{
-            backgroundColor: 'blue',}}
-        className={`
-          font-bold py-1 px-2 rounded
-          ${isFollowing 
-            ? 'bg-white text-black border border-gray-300 hover:bg-gray-100' 
-            : `bg-blue text-white hover:opacity-90`
-          }
-          transition-all duration-200
-        `}
-      >
-        {isFollowing ? 'Suivi(e)' : 'Suivre'}
-      </button>
-      {saveError && <div className="text-red-500 text-sm mt-1">{saveError}</div>}
-    </>
+    <button
+  onClick={handleFollow}
+  disabled={isSaving}
+  style={{
+    backgroundColor: 'blue',
+    borderRadius: '20px',  // ou '9999px' pour des bordures complètement rondes
+  }}
+  className={`
+    font-bold py-1 px-2
+    ${isFollowing
+      ? 'bg-white text-black border border-gray-300 hover:bg-gray-100'
+      : `bg-blue text-white hover:opacity-90`
+    }
+    transition-all duration-200
+  `}
+>
+  {isFollowing ? 'Suivi(e)' : 'Suivre'}
+</button></>
   );
 };
 
