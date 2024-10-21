@@ -68,7 +68,7 @@ const ProductCard = ({ product }) => {
       setQuantity(1);
     };
   
-    const handleQuantityChange = (e) => {newOrderData
+    const handleQuantityChange = (e) => {
       setQuantity(+e.target.value);
     };
   
@@ -134,6 +134,7 @@ const ProductCard = ({ product }) => {
                     className="form-control"
                     value={quantity}
                     onChange={(e)=>setQuantity(+e.target.value)}
+
                     min="1"
                   />
                   <button
