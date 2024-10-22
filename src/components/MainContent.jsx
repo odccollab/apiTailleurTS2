@@ -12,7 +12,9 @@ import useFetch from "../backend/Services/useFetch.js";
 import RightChat from "./RightChat.jsx";
 import useSave from "../backend/Services/useSave.js";
 import HttpMethod from "../Enums/httpMethods.js";
-import StoryModal from './modals/StoryModal'; // Assuming you already have this created
+import StoryModal from './modals/StoryModal';
+import Follow from "./Follow.jsx";
+import useFollow from "../backend/Services/Follow.js";
 
 const MainContent = () => {
     const { saveData, isSaving, saveError } = useSave();
@@ -22,7 +24,7 @@ const MainContent = () => {
     const [order, setOrder] = useState(null); // State to store the response from delete
     const [isDeleting, setIsDeleting] = useState(false); // State to manage loading state for delete
     const [groupedStories, setGroupedStories] = useState({});
-
+const {modifyArray}=useFollow()
     // Data handlers for infinite scroll and fetch
     const dataHandler = (newData) => ({
         posts: [...(data.posts || []), ...(newData.posts || [])],
@@ -36,7 +38,10 @@ const MainContent = () => {
         setPost2(data.posts);
         setStory(data.stories);
     }, [data]);
-
+const onPostDelete = (post) =>{
+   const newP= modifyArray(posts,post,'remove')
+    setPost2(newP)
+    }
     useEffect(() => {
         const groupStories = () => {
             const grouped = stories.reduce((acc, story) => {
@@ -136,6 +141,8 @@ const MainContent = () => {
                                 favorite={post.favorite}
                                 likeStatus={post.likeStatus}
                                 isfollowing={post.following}
+                                post={post}
+                                delet={onPostDelete}
                             />
                         ))}
 
