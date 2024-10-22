@@ -23,7 +23,7 @@ const StoryCreate = ({ stories, setStories }) => {
 
         try {
             const post = await saveData("posts/create", formData);
-            setStories([post, ...stories]);
+            setStories(post);
             setContenu("");
             setContenuMedia(null);
             setOpen(false); // Close the form after submission

@@ -26,7 +26,7 @@ const apiRepository = {
             'Accept': '*/*',
             'Content-Type': data instanceof FormData ? 'multipart/form-data' : 'application/json',
         };
-
+        console.log(data instanceof FormData)
         try {
             const config = {
                 method: method,

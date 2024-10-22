@@ -9,66 +9,98 @@ import SuggestedFriendsCard from "./SuggestedFriendsCard.jsx";
 import { DotTyping } from "./DotTyping.jsx";
 import "../css/stories.css";
 import useFetch from "../backend/Services/useFetch.js";
-import RightChat from "./RightChat.jsx";
 import useSave from "../backend/Services/useSave.js";
 import HttpMethod from "../Enums/httpMethods.js";
 import StoryModal from './modals/StoryModal';
-import Follow from "./Follow.jsx";
 import useFollow from "../backend/Services/Follow.js";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const MainContent = () => {
-    const { saveData, isSaving, saveError } = useSave();
-    const [posts, setPost2] = useState([]);
-    const [stories, setStory] = useState([]);
-    const [selectedUserStories, setSelectedUserStories] = useState(null); // Track selected user's stories
-    const [order, setOrder] = useState(null); // State to store the response from delete
-    const [isDeleting, setIsDeleting] = useState(false); // State to manage loading state for delete
+    const { saveData } = useSave();
+    const { user } = useAuth();
+    const { modifyArray } = useFollow();
+
+    const [posts, setPosts] = useState([]);
+    const [stories, setStories] = useState([]);
+    const [userStories, setUserStories] = useState([]);
+    const [otherStories, setOtherStories] = useState([]);
     const [groupedStories, setGroupedStories] = useState({});
-const {modifyArray}=useFollow()
-    // Data handlers for infinite scroll and fetch
-    const dataHandler = (newData) => ({
-        posts: [...(data.posts || []), ...(newData.posts || [])],
-        stories: [...(newData.stories || [])]
-    });
+    const [selectedUserStories, setSelectedUserStories] = useState(null);
 
-    const { data, loading, hasMore, error } = useInfiniteScroll("posts/postall", 5, { posts: [], stories: [] }, dataHandler);
-    const { data: relationData, loading: relationLoading, error: relationError } = useFetch('users/suggested-and-not-followed');
-    console.log(relationData)
+    const { data, loading, hasMore, error } = useInfiniteScroll("posts/postall", 5, { posts: [], stories: [] });
+    const { data: relationData } = useFetch('users/suggested-and-not-followed');
+
     useEffect(() => {
-        setPost2(data.posts);
-        setStory(data.stories);
+        if (data) {
+            setPosts(data.posts || []);
+            updateStories(data.stories || []);
+        }
     }, [data]);
-const onPostDelete = (post) =>{
-   const newP= modifyArray(posts,post,'remove')
-    setPost2(newP)
-    }
-    useEffect(() => {
-        const groupStories = () => {
-            const grouped = stories.reduce((acc, story) => {
-                const userId = story.user.id;
-                if (!acc[userId]) {
-                    acc[userId] = {
-                        user: story.user,
-                        stories: []
-                    };
-                }
-                acc[userId].stories.push(story);
-                return acc;
-            }, {});
-            return grouped;
-        };
 
-        const groupedResult = groupStories();
-        setGroupedStories(groupedResult);
-    }, [stories]);
-    // Group stories by user
+    // Centralisation de la gestion des stories
+    const updateStories = (newStories) => {
+        const validStories = newStories.filter(story => story && story.user);
+        const currentUserStories = validStories.filter(story => story.user.id === user.id);
+        const otherUserStories = validStories.filter(story => story.user.id !== user.id);
 
-    // Open StoryModal when a user clicks on their stories
-    const handleStoryClick = (userId) => {
-        setSelectedUserStories(groupedStories[userId].stories);
+        setUserStories(currentUserStories);
+        setOtherStories(otherUserStories);
+        setStories([...currentUserStories, ...otherUserStories]);
+        // Regrouper les stories par utilisateur
+        const grouped = groupStoriesByUser([...currentUserStories, ...otherUserStories]);
+        setGroupedStories(grouped);
     };
 
-    // Close StoryModal
+    // Fonction pour regrouper les stories par utilisateur
+    const groupStoriesByUser = (stories) => {
+        return stories.reduce((acc, story) => {
+            const userId = story.user.id;
+            if (!acc[userId]) {
+                acc[userId] = {
+                    user: story.user,
+                    stories: []
+                };
+            }
+            acc[userId].stories.push(story);
+            return acc;
+        }, {});
+    };
+
+    const handleAddStory = (newStory) => {
+        console.log(  newStory )
+        if (!newStory || !newStory.user) return;
+        const isCurrentUser = newStory.user.id === user.id;
+
+        if (isCurrentUser) {
+            setUserStories(prev => [...prev, newStory]);
+        } else {
+            setOtherStories(prev => [...prev, newStory]);
+        }
+
+        updateStories([newStory, ...stories]);
+    };
+
+    const handleDeleteStory = async (story) => {
+        console.log(story,"storyyyyyy")
+        if (!story || !story.id) return;
+        try {
+            console.log(stories,"before")
+            await saveData(`posts/${story.id}`, null, HttpMethod.DELETE);
+            const updatedStories = stories.filter(s => s.id !== story.id);
+            console.log(updatedStories,"after")
+            updateStories(updatedStories);
+        } catch (error) {
+            console.error('Failed to delete story:', error);
+        }
+    };
+
+    const handleStoryClick = (userId) => {
+        const userStories = groupedStories[userId]?.stories;
+        if (userStories?.length > 0) {
+            setSelectedUserStories(userStories);
+        }
+    };
+
     const closeStoryModal = () => {
         setSelectedUserStories(null);
     };
@@ -76,7 +108,6 @@ const onPostDelete = (post) =>{
     return (
         <>
             <div className="main-content right-chat-active">
-                {/* Loading State */}
                 {loading && posts.length === 0 && (
                     <div className="preloader-wrap p-3">
                         <div>Loading posts...</div>
@@ -93,25 +124,19 @@ const onPostDelete = (post) =>{
                     </div>
                 )}
 
-                {/* Error State */}
-                {!loading && error && (
-                    <div className="error">Error fetching posts: {error.message}</div>
-                )}
-
-                {/* No Posts State */}
-                {!loading && posts.length === 0 && (
-                    <div className="error">No posts available.</div>
-                )}
-
-                {/* Main Content */}
+                {!loading && error && <div className="error">Error fetching posts: {error.message}</div>}
+                {!loading && posts.length === 0 && <div className="error">No posts available.</div>}
                 <div className="row feed-body">
                     <div className="col-xl-8 col-xxl-9 col-lg-8 z-index--6" style={{ maxWidth: '1000px' }}>
-                        <div className="card  shadow-none bg-transparent border-0 p-4 mb-0">
-                            {/* Ajout du scroll horizontal ici */}
+                        <div className="card shadow-none bg-transparent border-0 p-4 mb-0">
                             <div className="d-flex col-lg-8 m-0 m-auto" style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
-                                <StoryCreate stories={stories} setStories={setStory} />
+                                <StoryCreate stories={stories} setStories={handleAddStory} />
                                 {Object.values(groupedStories).map((userGroup) => (
-                                    <div key={userGroup.user.id} style={{ display: 'inline-block' }} onClick={() => handleStoryClick(userGroup.user.id)}>
+                                    <div
+                                        key={userGroup.user.id}
+                                        style={{ display: 'inline-block' }}
+                                        onClick={() => handleStoryClick(userGroup.user.id)}
+                                    >
                                         <StoryItem
                                             userImage={userGroup.user.image}
                                             userName={`${userGroup.user.nom} ${userGroup.user.prenom}`}
@@ -122,13 +147,11 @@ const onPostDelete = (post) =>{
                             </div>
                         </div>
 
-
-
-                <PostCreateCard posts={posts} setPosts={setPost2} />
+                        <PostCreateCard posts={posts} setPosts={setPosts} />
                         {posts.map(post => (
                             <PostItem
                                 key={post.id}
-                                userImage={`${post.user.image}`}
+                                userImage={post.user.image}
                                 userName={`${post.user.prenom} ${post.user.nom}`}
                                 timeAgo={new Date(post.createdAt).toLocaleString()}
                                 content={post.contenu}
@@ -137,24 +160,24 @@ const onPostDelete = (post) =>{
                                 comments={post.comments || "0"}
                                 id={post.id}
                                 views={post.viewers || "0"}
-                                idUser={post.idUser}
                                 favorite={post.favorite}
                                 likeStatus={post.likeStatus}
                                 isfollowing={post.following}
                                 post={post}
-                                delet={onPostDelete}
+                                delet={() => setPosts(modifyArray(posts, post, 'remove'))}
                             />
                         ))}
 
-                        {/* Loading More Indicator */}
                         {loading && hasMore && (
                             <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
                                 <DotTyping />
                             </div>
                         )}
-
-                        {/* No More Posts */}
-                        {!hasMore && !loading && <p>No more posts available.</p>}
+                        {!hasMore && !loading && (
+                            <div className="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
+                                <p className="fw-500 text-grey-500 font-xssss">No more posts available.</p>
+                            </div>
+                        )}
                     </div>
 
                     <div className="col-xl-4 col-xxl-3 col-lg-4 ps-lg-0">
@@ -163,9 +186,11 @@ const onPostDelete = (post) =>{
                     </div>
                 </div>
             </div>
-            {/* Story Modal */}
+
             {selectedUserStories && (
                 <StoryModal
+                    onDeleteStory={handleDeleteStory}
+                    onSendMessage={saveData}
                     stories={selectedUserStories}
                     onClose={closeStoryModal}
                 />
