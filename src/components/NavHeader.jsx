@@ -2,7 +2,7 @@ import SettingsDropdown from "./SettingsDropdown.jsx";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useFetch from '../backend/Services/useFetch';
-
+import Logout from "./Logout.jsx";
 const NavHeader = () => {
     const [searchQuery, setSearchQuery] = useState(''); // Gérer l'état de l'input de recherche
     const navigate = useNavigate(); // Hook de navigation
@@ -88,6 +88,7 @@ const NavHeader = () => {
             <RouterLink to="/default-settings" className="p-0 ms-3 menu-icon">
                 <img src="../images/profile-4.png" alt="profile" />
             </RouterLink>
+            <Logout/>
         </div>
     );
 };
