@@ -31,9 +31,9 @@ const Notifications = () => {
 
     const handleNotificationClick = (notif) => {
         if (notif.type === 'post') {
-            navigate(`/posts/${notif.idType}`); // Rediriger vers le post
+            navigate(`/posts/${notif.idType}`);
         } else if (notif.type === 'user') {
-            navigate(`/profile/${notif.idType}`); // Rediriger vers le profil de l'utilisateur
+            navigate(`/profile/${notif.idType}`); 
         }
         markAsRead(notif.id); // Marquer la notification comme lue
     };
