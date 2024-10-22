@@ -16,7 +16,7 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import Likes from "./Likes.jsx";
 import "../css/comment.css";
 
-const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments, media, id, views, idUser, favorite ,isfollowing}) => {
+const PostItem = ({delet,post, userImage, userName, timeAgo, content, likeStatus, comments, media, id, views, idUser, favorite ,isfollowing}) => {
 
     const [showOptionsModal, setShowOptionsModal] = useState(false);
     const [showComments, setShowComments] = useState(false);
@@ -94,7 +94,7 @@ const PostItem = ({ userImage, userName, timeAgo, content, likeStatus, comments,
 
 
             {showComments && <CommentSection postId={id} />}
-            <OptionsModal show={showOptionsModal} handleClose={handleOptionsModal} postId={id} />
+            <OptionsModal delet={delet} post={post} show={showOptionsModal} handleClose={handleOptionsModal} postId={id} />
         </div>
     );
 };
