@@ -2,24 +2,88 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useAuth } from "../context/AuthContext.jsx";
 import useFetch from "../backend/Services/useFetch.js";
 import useSave from "../backend/Services/useSave.js";
+const ChatMessage = ({ isOutgoing, avatar, name, time, message, image, relatedEntity, from }) => {
+    const renderRelatedEntity = () => {
+        if (!relatedEntity) return null;
 
-const ChatMessage = ({ isOutgoing, avatar, name, time, message, image }) => (
-    <div className={`message-item ${isOutgoing ? 'outgoing-message' : ''}`}>
-        <div className="message-user">
-            <figure className="avatar">
-                <img src={avatar} alt="User avatar" />
-            </figure>
-            <div>
-                <h5>{name}</h5>
-                <div className="time">
-                    {time} {isOutgoing && <i className="ti-double-check text-info "></i>}
+        switch (from) {
+            case 'post':
+                return (
+                    <div className="card w-50 shadow-sm mb-0 mt-1">
+                        <div className="card-body d-flex p-2 bg-lightblue theme-dark-bg rounded">
+                            <i className="feather-image text-blue-gradient me-2 font-md mt-1"></i>
+                            <div className="w-100">
+                                <div className="card-image w-100 p-0 mb-2">
+                                    {relatedEntity.contenuMedia && relatedEntity.contenuMedia.length > 0 ? (
+                                        <img
+                                            src={relatedEntity.contenuMedia[0].url}
+                                            className="w-100 rounded-3"
+                                            alt="Post attachment"
+                                        />
+                                    ) : (
+                                        <p className="font-xssss text-grey-800">{relatedEntity.contenu}</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            case 'comment':
+                return (
+                    <div className="card w-100 shadow-sm mb-0 mt-2">
+                        <div className="card-body d-flex p-2 bg-lightblue theme-dark-bg rounded">
+                            <i className="feather-message-circle text-blue-gradient me-2 font-md mt-1"></i>
+                            <div className="w-100">
+                                <h6 className="mb-1 font-xssss text-grey-900">Related Comment</h6>
+                                <p className="font-xssss fw-400 text-grey-500 lh-20">
+                                    {relatedEntity.contenu}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
+    return (
+        <div className={`message-item ${isOutgoing ? 'outgoing-message' : ''}`}>
+            <div className="message-user d-flex align-items-center mb-2">
+                <figure className="avatar me-2">
+                    <img src={avatar} alt="User avatar" className="shadow-sm rounded-circle" style={{ width: '30px', height: '30px' }} />
+                </figure>
+                <div>
+                    <h6 className="font-xssss mt-1 mb-0">{name}</h6>
+                    <div className="time text-grey-500" style={{ fontSize: '10px' }}>
+                        {time}
+                        {isOutgoing && <i className="ti-double-check text-info ms-1"></i>}
+                    </div>
                 </div>
             </div>
+
+            <div className={`message-wrap ${isOutgoing ? 'bg-blue-gradiant' : 'bg-greyblue'} p-2 rounded`}>
+                <p className={`mb-0 font-xssss lh-20 ${isOutgoing ? 'text-white' : 'text-black'} `}>
+                    {message}
+                </p>
+            </div>
+
+            {renderRelatedEntity()}
+
+            {image && !from && (
+                <div className="card-image w-100 p-0 mt-2">
+                    <img
+                        src={image}
+                        className="w-25 rounded-3 float-right"
+                        alt="Message attachment"
+                    />
+                </div>
+            )}
         </div>
-        {message && <div className={`message-wrap ${isOutgoing ? 'bg-blue-gradiant' : 'bg-greyblue'}`}>{message}</div>}
-        {image && <figure><img src={image} className="w-25 img-fluid rounded-3 " alt="Message attachment" /></figure>}
-    </div>
-);
+    );
+};
+
+
 
 const ChatForm = ({ onSendMessage }) => {
     const [message, setMessage] = useState('');
@@ -80,16 +144,26 @@ const Chat = () => {
     }, []);
 
     const memoizedMessages = useMemo(() => messages.map((msg, index) => (
-        <ChatMessage
-            key={msg.id || index}
-            isOutgoing={msg.senderId === user.id}
-            avatar={msg.sender.image}
-            name={`${msg.sender.prenom} ${msg.sender.nom}`}
-            time={new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-            message={msg.content}
-            image={msg.relatedEntity ? msg.relatedEntity.image : null}
-        />
+       <>
+           {
+
+           }
+           <ChatMessage
+               key={msg.id || index}
+               isOutgoing={msg.senderId === user.id}
+               avatar={msg.sender.image}
+               name={`${msg.sender.prenom} ${msg.sender.nom}`}
+               time={new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+               message={msg.content}
+               image={null}
+               relatedEntity={msg.relatedEntity}
+               from={msg.from}
+               fromId={msg.fromId}
+               // Passer le type de message (post, commentaire, etc.)
+           />
+       </>
     )), [messages, user.id]);
+
 
     if (isLoading) {
         return <div>Loading...</div>;

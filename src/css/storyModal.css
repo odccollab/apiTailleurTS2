@@ -3,62 +3,103 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    z-index: 1000;
+    justify-content: center;
 }
 
+/* Progress bars container */
 .progress-container {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
+    top: 12px;
+    left: 0;
+    right: 0;
     display: flex;
-    gap: 2px;
+    gap: 4px;
+    padding: 0 16px;
+    z-index: 10;
 }
 
 .progress-bar-wrapper {
-    flex-grow: 1;
-    height: 2px;
-    background-color: rgba(255, 255, 255, 0.3);
+    flex: 1;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .progress-bar {
     height: 100%;
-    background-color: white;
+    background: #fff;
+    border-radius: 4px;
     transition: width 0.05s linear;
 }
 
+/* Close button */
 .close-button {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
     border: none;
     color: white;
     font-size: 24px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    z-index: 10;
 }
 
+.close-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Story content */
 .story-content {
     position: relative;
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
+.story-media {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.story-text-content {
+    max-width: 500px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    color: white;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Navigation overlays */
 .navigation-overlay {
     position: absolute;
     top: 0;
     width: 50%;
     height: 100%;
     cursor: pointer;
+    z-index: 5;
 }
 
 .navigation-overlay:first-child {
@@ -69,39 +110,159 @@
     right: 0;
 }
 
+/* User info */
 .user-info {
     position: absolute;
-    bottom: 20px;
+    top: 20px;
     left: 20px;
     display: flex;
     align-items: center;
-    color: white;
+    gap: 12px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    z-index: 10;
 }
 
 .user-avatar {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    margin-right: 10px;
+    border: 2px solid white;
 }
 
 .user-name {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.story-media {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-.story-text-content {
-    max-width: 80%;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
     color: white;
-    font-size: 18px;
-    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Action buttons */
+.delete-button,
+.message-button {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.message-button {
+    background: #0095f6;
+    color: white;
+    margin-left: 8px;
+}
+
+.message-button:hover {
+    background: #0081d6;
+}
+
+.delete-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ff3b30;
+}
+
+.delete-button:hover {
+    background: rgba(255, 59, 48, 0.1);
+}
+
+/* Message input container */
+.message-input-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.message-input {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 0.95rem;
+    resize: none;
+    height: 45px;
+}
+
+.message-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.send-message-button,
+.cancel-message-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.send-message-button {
+    background: #0095f6;
+    color: white;
+}
+
+.send-message-button:hover {
+    background: #0081d6;
+}
+
+.cancel-message-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.cancel-message-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.story-modal {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.message-input-container {
+    animation: slideUp 0.3s ease-out;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .user-info {
+        top: 60px;
+    }
+
+    .story-text-content {
+        max-width: 90%;
+        font-size: 1.2rem;
+    }
+
+    .close-button {
+        top: 10px;
+        right: 10px;
+    }
 }

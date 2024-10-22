@@ -1,18 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../../css/storyModal.css';
 
-const StoryModal = ({ stories, onClose }) => {
+const StoryModal = ({ stories, onClose, onDeleteStory, onSendMessage }) => {
     const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
     const [progress, setProgress] = useState(0);
+    const [isTyping, setIsTyping] = useState(false);
+    const [messageContent, setMessageContent] = useState('');
+    const [isPaused, setIsPaused] = useState(false);
     const intervalRef = useRef(null);
     const videoRef = useRef(null);
-    const [storyDuration, setStoryDuration] = useState(5000); // Default duration
-    const updateInterval = 50; // Update progress every 50ms
+    const [storyDuration, setStoryDuration] = useState(5000);
+    const updateInterval = 50;
 
     const handleNext = () => {
         if (currentStoryIndex < stories.length - 1) {
             setCurrentStoryIndex(prevIndex => prevIndex + 1);
             setProgress(0);
+            setIsPaused(false);
         } else {
             onClose();
         }
@@ -22,10 +26,20 @@ const StoryModal = ({ stories, onClose }) => {
         if (currentStoryIndex > 0) {
             setCurrentStoryIndex(prevIndex => prevIndex - 1);
             setProgress(0);
+            setIsPaused(false);
         }
     };
 
+    const togglePause = () => {
+        setIsPaused(prev => !prev);
+    };
+
     useEffect(() => {
+        if (isTyping || isPaused) {
+            clearInterval(intervalRef.current);
+            return;
+        }
+
         const currentStory = stories[currentStoryIndex];
         const hasMedia = currentStory.contenuMedia && currentStory.contenuMedia.length > 0;
         const mediaUrl = hasMedia ? currentStory.contenuMedia[0].url : null;
@@ -36,7 +50,7 @@ const StoryModal = ({ stories, onClose }) => {
                 setStoryDuration(videoRef.current.duration * 1000);
             };
         } else {
-            setStoryDuration(5000); // Reset to default for images and text
+            setStoryDuration(5000);
         }
 
         setProgress(0);
@@ -54,14 +68,28 @@ const StoryModal = ({ stories, onClose }) => {
         }, updateInterval);
 
         return () => clearInterval(intervalRef.current);
-    }, [currentStoryIndex, storyDuration]);
+    }, [currentStoryIndex, storyDuration, isTyping, isPaused]);
 
-    const currentStory = stories[currentStoryIndex];
-    const hasMedia = currentStory.contenuMedia && currentStory.contenuMedia.length > 0;
-    const mediaUrl = hasMedia ? currentStory.contenuMedia[0].url : null;
-    const isVideo = mediaUrl && mediaUrl.includes('.mp4');
+    const handleSendMessage = () => {
+        if (!messageContent.trim()) return;
+
+        const storyId = stories[currentStoryIndex].id;
+        onSendMessage({
+            receiver: stories[currentStoryIndex].user.id,
+            content: messageContent,
+            type: 'post',
+            typeId: storyId,
+        });
+        setMessageContent('');
+        setIsTyping(false);
+        setIsPaused(false);
+    };
 
     const renderStoryContent = () => {
+        const currentStory = stories[currentStoryIndex];
+        const hasMedia = currentStory.contenuMedia && currentStory.contenuMedia.length > 0;
+        const mediaUrl = hasMedia ? currentStory.contenuMedia[0].url : null;
+        const isVideo = mediaUrl && mediaUrl.includes('.mp4');
         if (hasMedia) {
             if (isVideo) {
                 return (
@@ -69,28 +97,34 @@ const StoryModal = ({ stories, onClose }) => {
                         ref={videoRef}
                         className="story-media"
                         autoPlay
+                        playsInline
                         muted
                         onEnded={handleNext}
-                        style={{width:'80%',maxHeight:'800px'}}
+                        onClick={togglePause}
                     >
                         <source src={mediaUrl} type="video/mp4" />
-                        Your browser does not support the video tag.
                     </video>
                 );
-            } else {
-                return <img src={mediaUrl} alt="Story" className="story-media" />;
             }
-        } else {
-            return (
-                <div className="story-text-content">
-                    <p>{currentStory.contenu}</p>
-                </div>
-            );
+            return <img src={mediaUrl} alt="Story" className="story-media" onClick={togglePause} />;
+        }
+
+        return (
+            <div className="story-text-content" onClick={togglePause}>
+                <p>{currentStory.contenu}</p>
+            </div>
+        );
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSendMessage();
         }
     };
 
     return (
-        <div className="story-modal">
+        <div className="story-modal" onClick={togglePause}>
             <div className="progress-container">
                 {stories.map((_, index) => (
                     <div key={index} className="progress-bar-wrapper">
@@ -104,18 +138,66 @@ const StoryModal = ({ stories, onClose }) => {
                 ))}
             </div>
 
-            <button className="close-button" onClick={onClose}>&times;</button>
+            <button className="close-button" onClick={(e) => { e.stopPropagation(); onClose(); }}>
+                &times;
+            </button>
 
-            <div className="story-content">
+            <div className="story-content" onClick={e => e.stopPropagation()}>
                 <div className="navigation-overlay" onClick={handlePrevious}></div>
                 {renderStoryContent()}
                 <div className="navigation-overlay" onClick={handleNext}></div>
             </div>
 
             <div className="user-info">
-                <img src={currentStory.user.image} alt={currentStory.user.nom} className="user-avatar" />
-                <span className="user-name">{`${currentStory.user.nom} ${currentStory.user.prenom}`}</span>
+                <img src={stories[currentStoryIndex].user.image} alt="User" className="user-avatar" />
+                <span className="user-name">
+                    {`${stories[currentStoryIndex].user.prenom} ${stories[currentStoryIndex].user.nom}`}
+                </span>
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onDeleteStory(stories[currentStoryIndex]);
+                    }}
+                    className="delete-button"
+                >
+                    Delete
+                </button>
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setIsTyping(true);
+                        setIsPaused(true);
+                    }}
+                    className="message-button"
+                >
+                    Message
+                </button>
             </div>
+
+            {isTyping && (
+                <div className="message-input-container" onClick={e => e.stopPropagation()}>
+                    <textarea
+                        placeholder="Type your message..."
+                        value={messageContent}
+                        onChange={(e) => setMessageContent(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        className="message-input"
+                        autoFocus
+                    />
+                    <button onClick={handleSendMessage} className="send-message-button">
+                        Send
+                    </button>
+                    <button
+                        onClick={() => {
+                            setIsTyping(false);
+                            setIsPaused(false);
+                        }}
+                        className="cancel-message-button"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
